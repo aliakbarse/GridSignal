@@ -1,0 +1,3 @@
+price_category,hours,average_price_eur_mwh,median_price_eur_mwh,average_demand_mwh,average_renewables_mwh,average_residual_load_mwh,share_of_all_hours_pct
+Negative price,1030,-11.192689320388348,-2.02,49459.1620776699,45724.730553398054,3734.4316019417474,5.870953032375741
+Non-negative price,16514,89.84123289330266,88.53,53900.69991522344,21962.49904686932,31938.197160591015,94.12904696762426

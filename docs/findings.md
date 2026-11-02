@@ -2,7 +2,7 @@
 
 ## 1. Research Question
 
-How did negative electricity prices in the German day-ahead market vary between 2024 and 2025, and how did renewable generation differ between negative-price and nonnegative-price hours?
+How did negative electricity prices in the German day-ahead market vary between 2024 and 2025, and how did renewable generation differ between negative-price and non-negative-price hours?
 
 ## 2. Finding One: Negative Prices Increased in May and June 2025
 
@@ -19,17 +19,9 @@ The frequency increased by 6.86 percentage points in May and 10.69 percentage po
 
 **Visualization:** `negative_price_frequency_2024_2025.png`
 
-## 3. Finding Two: Solar Generation Was Higher During Negative-Price Hours
+## 3. Finding Two: Negative-Price Frequency and Severity Tell Different Stories
 
-In May 2025, average solar generation was approximately 34,775 MWh during negative-price hours, compared with 9,415 MWh during nonnegative-price hours.
-
-In June 2025, the corresponding averages were approximately 35,296 MWh and 9,713 MWh.
-
-These figures represent average generation per observed hourly interval, not monthly generation totals.
-
-**Interpretation:** The observed data show an association between higher solar generation and negative prices in these months. Other factors, including electricity demand, wind generation, conventional power-plant operations, cross-border electricity flows, and broader market conditions, may also contribute. This analysis does not establish causation.
-
-## 4. Finding Three: Mild Negative Prices Made Up a Larger Share of Events in 2025
+### Negative-price severity
 
 Negative-price hours were grouped into five severity bands and compared as a share of all negative-price hours in each year.
 
@@ -52,9 +44,21 @@ The annual minimum price was also more extreme in 2025 (-250.32 EUR/MWh versus -
 
 **Visualization:** `negative_price_severity_2024_2025.png`
 
-## 5. Finding Four: Higher Solar Generation Was Consistent Across Eligible Months
+## 4. Finding Three: Higher Solar Generation Coincided With Negative Prices
 
-A monthly consistency analysis compared average solar generation during negative-price hours with average solar generation during nonnegative-price hours. To reduce reliance on months with very few negative-price observations, the analysis used a screening threshold of at least 30 negative-price hours per month.
+### Monthly comparisons
+
+In May 2025, average solar generation was approximately 34,775 MWh during negative-price hours, compared with 9,415 MWh during non-negative-price hours.
+
+In June 2025, the corresponding averages were approximately 35,296 MWh and 9,713 MWh.
+
+These figures represent average generation per observed hourly interval, not monthly generation totals.
+
+**Interpretation:** The observed data show an association between higher solar generation and negative prices in these months. Other factors, including electricity demand, wind generation, conventional power-plant operations, cross-border electricity flows, and broader market conditions, may also contribute. This analysis does not establish causation.
+
+### Monthly consistency
+
+A monthly consistency analysis compared average solar generation during negative-price hours with average solar generation during non-negative-price hours. To reduce reliance on months with very few negative-price observations, the analysis used a screening threshold of at least 30 negative-price hours per month.
 
 Across the 2024–2025 dataset:
 
@@ -76,11 +80,9 @@ However, the 30-hour threshold is a practical screening rule, not a formal stati
 
 **Visualization:** `monthly_solar_comparison_2024_2025.png`
 
-## 6. Finding Five: Negative Prices Were Concentrated Around Midday
+### Hourly timing
 
 An hourly analysis examined the proportion of observed intervals with negative prices at each German local hour. The rate was calculated separately for 2024 and 2025 using the observed intervals for each hour as the denominator.
-
-The highest hourly negative-price rates were:
 
 | Year | Hour of peak rate (German local time) | Negative-price hours | Observed hours | Negative-price rate |
 |---|---:|---:|---:|---:|
@@ -95,16 +97,16 @@ The hourly profiles show that negative prices were substantially more frequent d
 
 **Visualization:** `hour_of_day_analysis_2024_2025.png`
 
-## 7. Finding Six: Solar Generation Was Generally Higher During Daytime Negative-Price Hours
+### Solar generation by hour
 
-The hourly solar analysis compared average solar generation during negative-price and nonnegative-price intervals at each hour, separately for 2024 and 2025.
+The hourly solar analysis compared average solar generation during negative-price and non-negative-price intervals at each hour, separately for 2024 and 2025.
 
 The results show that average solar generation was generally higher during negative-price hours through much of the daytime in both years. For example, at 11:00 in 2025:
 
 - Average solar generation during negative-price hours was approximately 35,216 MWh.
-- Average solar generation during nonnegative-price hours was approximately 22,946 MWh.
+- Average solar generation during non-negative-price hours was approximately 22,946 MWh.
 
-The difference was approximately 12,270 MWh per observed hourly interval, or about 53% relative to the nonnegative-price average.
+The difference was approximately 12,270 MWh per observed hourly interval, or about 53% relative to the non-negative-price average.
 
 The daytime comparison is descriptive. It does not show that high solar generation independently caused negative prices. The observed differences may also reflect other factors associated with the timing of negative-price intervals, including electricity demand, wind generation, conventional generation, and cross-border electricity flows.
 
@@ -120,22 +122,26 @@ Some overnight hour-and-price-category combinations contain very few observation
 
 **Visualization:** `hour_of_day_analysis_2024_2025.png`
 
-## 8. Finding Seven: Negative Prices Were Associated With Higher Renewable Generation and Lower Residual Load
+## 5. Finding Four: Residual Load Was Strongly Associated With Price
 
-A comparison of negative-price and nonnegative-price intervals examined electricity prices, grid load, selected renewable generation, and residual load across the combined 2024–2025 dataset.
+### Negative-price versus non-negative-price hours
 
-The analysis contained **17,541 hourly observations**:
+A comparison of negative-price and non-negative-price intervals examined electricity prices, grid load, selected renewable generation, and residual load across the combined 2024–2025 dataset.
+
+The analysis contained **17,544 hourly observations**:
 
 | Price category | Observed hours | Average price (EUR/MWh) | Average grid load (MWh) | Average selected renewables (MWh) | Average residual load (MWh) |
 |---|---:|---:|---:|---:|---:|
 | Negative price | 1,030 | -11.19 | 49,459.16 | 45,724.73 | 3,734.43 |
-| Nonnegative price | 16,511 | 89.84 | 53,901.51 | 21,960.24 | 31,941.26 |
+| Non-negative price | 16,514 | 89.84 | 53,900.70 | 21,962.50 | 31,938.20 |
 
-Negative-price intervals represented **5.87%** of the combined observations, while nonnegative-price intervals represented **94.13%**.
+Negative-price intervals represented **5.87%** of the combined observations, while non-negative-price intervals represented **94.13%**.
 
-During negative-price intervals, average selected renewable generation was approximately 23,764.49 MWh higher than during nonnegative-price intervals. Average grid load was approximately 4,442.35 MWh lower, and average residual load was approximately 28,206.83 MWh lower.
+During negative-price intervals, average selected renewable generation was approximately **23,762.23 MWh higher** than during non-negative-price intervals. Average grid load was approximately **4,441.54 MWh lower**, and average residual load was approximately **28,203.77 MWh lower**.
 
 Residual load represents grid load after subtracting the selected wind and solar generation components. The observed comparison therefore shows that negative-price intervals coincided with substantially higher selected renewable generation relative to grid load.
+
+### Correlation analysis
 
 The correlation analysis across the combined dataset also showed:
 
@@ -150,59 +156,56 @@ The correlation analysis across the combined dataset also showed:
 
 These correlations describe linear relationships across the combined observations. They do not measure causal effects and may reflect common patterns in time, demand, generation, or market conditions.
 
-**Interpretation:** Negative prices were associated with higher selected renewable generation and lower residual load. The comparison supports investigating the relationship between renewable output, remaining demand, and market prices. It does not establish that renewable generation alone caused negative prices. Other market variables, including demand, imports and exports, conventional generation, storage, and market conditions, were not isolated in this analysis.
-
-**Supporting analysis:** `negative_price_comparison_2024_2025.csv`
-
-**Supporting analysis:** `demand_price_analysis_2024_2025.csv`
-
-## 9. Finding Eight: Price and Residual Load Showed a Strong Positive Relationship
+### Price across demand and residual-load quintiles
 
 A demand-price analysis examined how electricity prices varied across grid-load and residual-load levels. The analysis divided observations into five quintiles, from very low to very high values, and compared the average and median prices within each group.
 
-### Price by grid-load quintile
+#### Price by grid-load quintile
 
 | Grid-load quintile | Observed hours | Average grid load (MWh) | Average price (EUR/MWh) | Median price (EUR/MWh) | Negative-price hours |
 |---|---:|---:|---:|---:|---:|
 | Very Low | 3,509 | 41,149.66 | 67.72 | 82.22 | 285 |
-| Low | 3,508 | 47,428.33 | 68.15 | 78.86 | 346 |
-| Medium | 3,508 | 53,610.63 | 85.90 | 90.07 | 190 |
-| High | 3,508 | 59,228.16 | 85.27 | 85.43 | 183 |
-| Very High | 3,508 | 66,790.05 | 112.52 | 101.36 | 26 |
+| Low | 3,509 | 47,428.25 | 68.16 | 78.87 | 346 |
+| Medium | 3,508 | 53,607.20 | 85.90 | 90.05 | 190 |
+| High | 3,509 | 59,225.90 | 85.28 | 85.43 | 183 |
+| Very High | 3,509 | 66,788.68 | 112.49 | 101.33 | 26 |
 
 Average prices were substantially higher in the very-high-grid-load quintile than in the lower-load groups. However, the average price did not increase strictly at every quintile, and negative-price hours were observed across the grid-load distribution.
 
-### Price by residual-load quintile
+#### Price by residual-load quintile
 
 | Residual-load quintile | Observed hours | Average residual load (MWh) | Average price (EUR/MWh) | Median price (EUR/MWh) | Negative-price hours |
 |---|---:|---:|---:|---:|---:|
-| Very Low | 3,509 | 9,373.33 | 18.23 | 8.38 | 1,026 |
-| Low | 3,508 | 22,760.47 | 68.67 | 71.12 | 4 |
-| Medium | 3,508 | 30,987.64 | 88.82 | 88.57 | 0 |
-| High | 3,508 | 38,340.83 | 103.07 | 101.90 | 0 |
-| Very High | 3,508 | 49,968.53 | 140.79 | 128.56 | 0 |
+| Very Low | 3,509 | 9,371.06 | 18.25 | 8.38 | 1,026 |
+| Low | 3,509 | 22,753.62 | 68.65 | 71.11 | 4 |
+| Medium | 3,508 | 30,983.46 | 88.80 | 88.56 | 0 |
+| High | 3,509 | 38,337.50 | 103.07 | 101.89 | 0 |
+| Very High | 3,509 | 49,966.40 | 140.78 | 128.56 | 0 |
 
-The average price increased from 18.23 EUR/MWh in the very-low-residual-load quintile to 140.79 EUR/MWh in the very-high-residual-load quintile.
+The average price increased from 18.25 EUR/MWh in the very-low-residual-load quintile to 140.78 EUR/MWh in the very-high-residual-load quintile.
 
-Negative-price intervals were concentrated in the very-low-residual-load group: 1,026 of its 3,509 observations had negative prices. The remaining residual-load quintiles contained very few or no negative-price observations.
+Negative-price intervals were concentrated in the very-low-residual-load group: **1,026 of its 3,509 observations** had negative prices. The remaining residual-load quintiles contained very few or no negative-price observations.
 
 **Interpretation:** Residual load showed a strong positive relationship with price across the observed quintiles. Negative prices were concentrated in intervals with very low residual load, while higher residual-load groups had progressively higher average prices.
 
 This is consistent with residual load being an important descriptive indicator of market conditions. However, the quintile analysis does not isolate residual load from time of day, seasonality, demand patterns, generation availability, cross-border flows, or other market factors. It does not establish a causal relationship.
 
-**Supporting analysis:** `demand_price_analysis_2024_2025.csv`
+**Supporting analyses:**
 
-## 10. Data Coverage and Limitations
+- `negative_price_comparison_2024_2025.csv`
+- `demand_price_analysis_2024_2025.csv`
 
-- The combined dataset contains **17,541 matched hourly records** for 2024 and 2025.
+## 6. Data Coverage and Limitations
+
+- The combined dataset contains **17,544 matched hourly records** for 2024 and 2025.
 - The 2024 dataset contains 8,784 records, covering the leap year.
-- The 2025 dataset contains 8,757 records. The final three hours of the year are absent from the source data.
+- The 2025 dataset contains 8,760 records.
 - The combined dataset has no duplicate UTC timestamps.
 - The UTC timeline is continuous, with every consecutive timestamp separated by exactly one hour.
 - The spring daylight-saving transitions in 2024 and 2025 show continuous UTC time while local time moves from 01:00 to 03:00. The local 02:00 hour is absent on those transition dates.
 - The autumn daylight-saving transitions contain repeated local 02:00 labels. The inspected raw consumption records for both years matched the merged records in source chronological order and in their observed values. Because the raw source timestamps do not independently distinguish the two repeated local hours, this check should not be interpreted as independent verification of every source row.
 - The timestamp validation establishes continuity of the merged UTC timeline and checks the inspected daylight-saving records. It does not independently verify every original source row.
-- February, November, and December 2025 had no observed negative-price hours, so negative-versus-nonnegative generation comparisons are unavailable for those months.
+- February, November, and December 2025 had no observed negative-price hours, so negative-versus-non-negative generation comparisons are unavailable for those months.
 - The severity-band percentages describe the distribution of observed negative-price hours, not the share of all hours in a year.
 - The solar-consistency analysis includes 13 year-month combinations meeting the 30-negative-hour screening threshold. The threshold is a practical rule, not a statistical significance criterion.
 - Hourly frequency rates use observed intervals as their denominators. Local daylight-saving transitions can result in different observation counts for certain hours.
@@ -213,7 +216,7 @@ This is consistent with residual load being an important descriptive indicator o
 - Before publication, verify the original SMARD field definitions and units for generation data. The numerical differences reported here are preserved from the analysis output and should not be interpreted as monthly totals.
 - The dataset covers 2024–2025 and should not automatically be assumed to represent future market conditions.
 
-## 11. Conclusion
+## 7. Conclusion
 
 The analysis identifies a clear increase in negative-price frequency during May and June 2025, alongside higher average solar generation during negative-price hours in those months.
 
