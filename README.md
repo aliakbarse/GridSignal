@@ -348,15 +348,41 @@ The scripts generate processed datasets under `data/processed/` and analytical o
 
 ### 6. Run additional analytics
 
-After the combined price and generation dataset and required consumption dataset are available, run:
+The following analyses require the combined market dataset. Demand-price analysis also requires the raw electricity consumption dataset.
+
+#### Negative-price and hourly analysis
+
+After the combined market dataset is available, run:
 
 ```powershell
 python -m gridsignal.analyze_negative_price_hours
-python -m gridsignal.analyze_demand_price
 python -m gridsignal.plot_hourly_negative_price_share
 ```
 
-These scripts provide negative-price comparisons, demand and residual-load analysis, and hourly negative-price-share visualization.
+#### Demand-price analysis
+
+Place the raw consumption dataset at:
+
+```text
+data/raw/Actual_consumption_202312312100_202512312100_Hour.csv
+```
+
+After the combined market dataset and required consumption dataset are available, prepare the merged dataset:
+
+```powershell
+python -m gridsignal.prepare_consumption_data
+```
+
+Then run the demand-price analysis:
+
+```powershell
+python -m gridsignal.analyze_demand_price
+```
+
+The preparation script validates the market and consumption timestamps before merging the datasets. The demand-price analysis produces `docs/demand_price_analysis_2024_2025.csv`.
+
+These analyses are separate from the project's initialization entry point.
+
 
 ### 7. Run optional timestamp and DST diagnostics
 
