@@ -1,40 +1,13 @@
-
-from pathlib import Path
-
 import matplotlib.pyplot as plt
-import pandas as pd
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+from gridsignal import config
+from gridsignal.data_loader import load_market_data
 
-DATA_FILE = (
-    PROJECT_ROOT
-    / "data"
-    / "processed"
-    / "germany_market_combined_2024_2025.csv"
-)
-
-OUTPUT_FILE = (
-    PROJECT_ROOT
-    / "docs"
-    / "negative_price_frequency_2024_2025.png"
-)
+OUTPUT_FILE = config.DOCS_DIR / "negative_price_frequency_2024_2025.png"
 
 
 def main() -> None:
-    df = pd.read_csv(DATA_FILE)
-
-    df["start_time_utc"] = pd.to_datetime(
-        df["start_time_utc"],
-        utc=True,
-        errors="raise",
-    )
-    df["start_time_local"] = (
-        df["start_time_utc"].dt.tz_convert("Europe/Berlin")
-    )
-
-    df["year"] = df["start_time_local"].dt.year
-    df["month"] = df["start_time_local"].dt.month
-    df["is_negative_price"] = df["price_eur_mwh"] < 0
+    df = load_market_data()
 
     monthly = (
         df.groupby(["year", "month"])
