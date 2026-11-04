@@ -75,13 +75,15 @@ def main() -> None:
                 label=str(year),
             )
 
-    # Highlight the highest monthly value in 2025.
-    june_2025 = plot_data.loc[6, 2025]
+    # Highlight the highest monthly value across both years.
+    peak = monthly.loc[monthly["negative_price_pct"].idxmax()]
+    peak_month = int(peak["month"])
+    peak_label = f"{month_labels[peak_month - 1]} {int(peak['year'])}"
 
     ax.annotate(
-        f"June 2025 peak: {june_2025:.1f}%",
-        xy=(6, june_2025),
-        xytext=(7.0, june_2025 + 0.5),
+        f"{peak_label} peak: {peak['negative_price_pct']:.1f}%",
+        xy=(peak_month, peak["negative_price_pct"]),
+        xytext=(peak_month + 1, peak["negative_price_pct"] + 0.5),
         fontsize=9,
         fontweight="bold",
         arrowprops={
@@ -121,8 +123,8 @@ def main() -> None:
     fig.text(
         0.01,
         0.055,
-        "KEY TAKEAWAY  |  Negative-price frequency surged in May 2025, "
-        "peaked at 19.6% in June, then fell to 1.6% in July.",
+        f"KEY TAKEAWAY  |  Negative-price share peaked in {peak_label} "
+        f"at {peak['negative_price_pct']:.1f}% of observed hours.",
         fontsize=9,
         fontweight="bold",
     )
@@ -130,8 +132,8 @@ def main() -> None:
     fig.text(
         0.01,
         0.015,
-        "Source: SMARD. German local time. 2025 excludes the final "
-        "three hours of the year; percentages use observed hours.",
+        "Source: SMARD, Germany/Luxembourg day-ahead prices, German local time. "
+        "From 1 Oct 2025, hourly values average four 15-minute prices.",
         fontsize=8,
         color="dimgray",
     )
