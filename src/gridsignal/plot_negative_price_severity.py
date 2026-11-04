@@ -180,12 +180,16 @@ def main() -> None:
         bbox_to_anchor=(1.02, 1),
     )
 
+    mild_label = SEVERITY_LABELS[-1]
+    mild_2024 = percentages.loc[2024, mild_label]
+    mild_2025 = percentages.loc[2025, mild_label]
+
     fig.text(
         0.01,
         0.065,
-        "KEY FINDING  |  Mild negative prices (-10 to 0 EUR/MWh) "
-        "accounted for 70.0% of negative-price hours in 2024 "
-        "and 76.4% in 2025.",
+        f"KEY FINDING  |  Mild negative prices ({mild_label} EUR/MWh) "
+        f"accounted for {mild_2024:.1f}% of negative-price hours in 2024 "
+        f"and {mild_2025:.1f}% in 2025.",
         fontsize=9,
         fontweight="bold",
     )
@@ -193,9 +197,9 @@ def main() -> None:
     fig.text(
         0.01,
         0.025,
-        "Source: SMARD. German local time. The final three hours "
-        "of 2025 are absent from the source dataset. "
-        "Percentages describe observed negative-price hours only.",
+        "Source: SMARD, Germany/Luxembourg day-ahead prices, German local time. "
+        "Percentages describe negative-price hours only. "
+        "From 1 Oct 2025, hourly values average four 15-minute prices.",
         fontsize=8,
         color="dimgray",
     )
