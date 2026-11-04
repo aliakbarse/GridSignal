@@ -142,22 +142,6 @@ Average solar generation by month and price category. Values are interval averag
 
 Negative-price frequency by German local hour and average solar generation by price category.
 
-### Hourly solar-generation comparison
-
-![Hourly solar generation comparison during negative-price and non-negative-price observations](docs/solar_negative_price_hourly_pattern_2024_2025.png)
-
-Average solar generation by local hour and the difference between price categories.
-
-### Hourly negative-price share
-
-![Hourly negative-price share in Germany, 2024–2025](docs/hourly_negative_price_share_2024_2025.png)
-
-Hourly negative-price share comparison across the analyzed years.
-
-Supporting month-hour table:
-
-`docs/month_hour_solar_price_comparison_2024_2025.csv`
-
 ## Data and Scope
 
 **Source:** [SMARD — Germany's electricity market data platform](https://www.smard.de/en)
@@ -228,12 +212,9 @@ GridSignal_AI/
 │   ├── negative_price_severity_2024_2025.png
 │   ├── monthly_solar_comparison_2024_2025.png
 │   ├── hour_of_day_analysis_2024_2025.png
-│   ├── solar_negative_price_hourly_pattern_2024_2025.png
-│   ├── hourly_negative_price_share_2024_2025.png
 │   ├── negative_price_comparison_2024_2025.csv
 │   ├── demand_price_analysis_2024_2025.csv
 │   ├── hourly_negative_price_frequency_2024_2025.csv
-│   ├── hourly_negative_price_share_2024_2025.csv
 │   ├── hourly_renewables_by_price_category_2024_2025.csv
 │   ├── hourly_solar_by_price_category_2024_2025.csv
 │   ├── hourly_wind_by_price_category_2024_2025.csv
@@ -267,9 +248,7 @@ GridSignal_AI/
 │       ├── plot_negative_price_frequency.py
 │       ├── plot_negative_price_severity.py
 │       ├── plot_monthly_solar_comparison.py
-│       ├── plot_hour_of_day_analysis.py
-│       ├── plot_solar_negative_price_hourly.py
-│       └── plot_hourly_negative_price_share.py
+│       └── plot_hour_of_day_analysis.py
 ├── tests/
 │   └── test_data_pipeline.py
 ├── .gitignore
@@ -341,7 +320,6 @@ python -m gridsignal.analyze_hour_of_day
 python -m gridsignal.plot_negative_price_severity
 python -m gridsignal.plot_monthly_solar_comparison
 python -m gridsignal.plot_hour_of_day_analysis
-python -m gridsignal.plot_solar_negative_price_hourly
 ```
 
 The scripts generate processed datasets under `data/processed/` and analytical outputs and charts under `docs/`.
@@ -356,7 +334,6 @@ After the combined market dataset is available, run:
 
 ```powershell
 python -m gridsignal.analyze_negative_price_hours
-python -m gridsignal.plot_hourly_negative_price_share
 ```
 
 #### Demand-price analysis

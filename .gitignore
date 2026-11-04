@@ -45,3 +45,5 @@ data/processed/
 *.temp
 *.bak
 *~
+
+notes/
