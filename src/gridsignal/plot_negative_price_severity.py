@@ -1,23 +1,10 @@
-
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import pandas as pd
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+from gridsignal import config
+from gridsignal.data_loader import load_market_data
 
-DATA_FILE = (
-    PROJECT_ROOT
-    / "data"
-    / "processed"
-    / "germany_market_combined_2024_2025.csv"
-)
-
-OUTPUT_FILE = (
-    PROJECT_ROOT
-    / "docs"
-    / "negative_price_severity_2024_2025.png"
-)
+OUTPUT_FILE = config.DOCS_DIR / "negative_price_severity_2024_2025.png"
 
 SEVERITY_BINS = [
     float("-inf"),
@@ -38,41 +25,7 @@ SEVERITY_LABELS = [
 
 
 def main() -> None:
-    if not DATA_FILE.exists():
-        raise FileNotFoundError(
-            f"Processed dataset not found: {DATA_FILE}\n"
-            "Run the data pipeline before generating this chart."
-        )
-
-    df = pd.read_csv(DATA_FILE)
-
-    required_columns = {"start_time_utc", "price_eur_mwh"}
-    missing_columns = required_columns - set(df.columns)
-
-    if missing_columns:
-        raise ValueError(
-            f"Dataset is missing required columns: "
-            f"{sorted(missing_columns)}"
-        )
-
-    df["start_time_utc"] = pd.to_datetime(
-        df["start_time_utc"],
-        utc=True,
-        errors="raise",
-    )
-
-    df["year"] = (
-        df["start_time_utc"]
-        .dt.tz_convert("Europe/Berlin")
-        .dt.year
-    )
-
-    df["price_eur_mwh"] = pd.to_numeric(
-        df["price_eur_mwh"],
-        errors="raise",
-    )
-
-    df = df[df["year"].isin([2024, 2025])].copy()
+    df = load_market_data()
     negative = df[df["price_eur_mwh"] < 0].copy()
 
     if negative.empty:
