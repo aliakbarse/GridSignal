@@ -11,6 +11,7 @@ STAGES = [
     "analyze_monthly_generation",
     "analyze_solar_consistency",
     "analyze_solar_controls",
+    "analyze_residual_load",
     "analyze_hour_of_day",
     "analyze_negative_price_hours",
     "analyze_demand_price",
