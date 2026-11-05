@@ -206,7 +206,6 @@ GridSignal_AI/
 │   ├── negative_price_severity_2024_2025.png
 │   ├── hour_of_day_analysis_2024_2025.png
 │   ├── negative_price_comparison_2024_2025.csv
-│   ├── demand_price_analysis_2024_2025.csv
 │   ├── hourly_negative_price_frequency_2024_2025.csv
 │   ├── hourly_solar_by_price_category_2024_2025.csv
 │   ├── month_hour_solar_price_comparison_2024_2025.csv
@@ -224,7 +223,6 @@ GridSignal_AI/
 │       ├── combine_data.py
 │       ├── analyze_hour_of_day.py
 │       ├── analyze_negative_price_hours.py
-│       ├── analyze_demand_price.py
 │       ├── plot_negative_price_frequency.py
 │       ├── plot_negative_price_severity.py
 │       └── plot_hour_of_day_analysis.py
@@ -323,13 +321,7 @@ After the combined market dataset and required consumption dataset are available
 python -m gridsignal.prepare_consumption_data
 ```
 
-Then run the demand-price analysis:
-
-```powershell
-python -m gridsignal.analyze_demand_price
-```
-
-The preparation script validates the market and consumption timestamps before merging the datasets. The demand-price analysis produces `docs/demand_price_analysis_2024_2025.csv`.
+The preparation script validates the market and consumption timestamps before merging the datasets.
 
 These analyses are separate from the project's initialization entry point.
 

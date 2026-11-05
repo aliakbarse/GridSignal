@@ -189,7 +189,6 @@ This is consistent with residual load being an important descriptive indicator o
 **Supporting analyses:**
 
 - `negative_price_comparison_2024_2025.csv`
-- `demand_price_analysis_2024_2025.csv`
 
 ## 6. Data Coverage and Limitations
 

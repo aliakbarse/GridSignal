@@ -10,7 +10,6 @@ STAGES = [
     "analyze_residual_load",
     "analyze_hour_of_day",
     "analyze_negative_price_hours",
-    "analyze_demand_price",
     "plot_negative_price_frequency",
     "plot_negative_price_severity",
     "plot_residual_load_bands",
