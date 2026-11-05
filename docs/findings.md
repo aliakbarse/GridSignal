@@ -114,7 +114,6 @@ Some overnight hour-and-price-category combinations contain very few observation
 
 - `hourly_negative_price_frequency_2024_2025.csv`
 - `hourly_solar_by_price_category_2024_2025.csv`
-- `seasonal_price_and_solar_summary_2024_2025.csv`
 
 **Visualization:** `hour_of_day_analysis_2024_2025.png`
 
