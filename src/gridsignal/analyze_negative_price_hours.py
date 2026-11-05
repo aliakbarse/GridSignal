@@ -83,7 +83,7 @@ def analyze_negative_prices(df):
 
 def main():
     print("=" * 70)
-    print("GRIDSIGNAL AI - NEGATIVE PRICE ANALYSIS")
+    print("GRIDSIGNAL - NEGATIVE PRICE ANALYSIS")
     print("=" * 70)
 
     df = load_data()

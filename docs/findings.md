@@ -1,4 +1,4 @@
-# GridSignal AI — Key Findings
+# GridSignal — Key Findings
 
 ## 1. Research Question
 

@@ -1,10 +1,10 @@
-# GridSignal AI
+# GridSignal
 
 **German Electricity Market Analytics · Python · pandas · matplotlib · pytest**
 
 Negative day-ahead electricity prices in Germany appear when wind and solar cover almost all of demand. This project turns hourly SMARD data for 2024–2025 into validated datasets, controlled comparisons and charts that show when negative prices happen and what separates those hours from the rest.
 
-Despite the name, there is no machine-learning component yet. Forecasting and AI-assisted explanations are ideas for later, not implemented features.
+The project is descriptive analytics: there is no machine-learning component yet, and forecasting is an idea for later.
 
 ## In plain terms
 
@@ -85,7 +85,7 @@ Calendar analysis uses `Europe/Berlin` local time. All scripts read data through
 ## Repository Structure
 
 ```text
-GridSignal_AI/
+GridSignal/
 ├── data/
 │   ├── raw/                  # Local source data; not tracked
 │   └── processed/            # Generated datasets; not tracked
@@ -143,8 +143,8 @@ Instructions describe the Windows PowerShell workflow.
 ### 1. Clone
 
 ```powershell
-git clone https://github.com/aliakbarse/GridSignal-AI.git
-cd GridSignal-AI
+git clone https://github.com/aliakbarse/GridSignal.git
+cd GridSignal
 ```
 
 ### 2. Create and activate a virtual environment

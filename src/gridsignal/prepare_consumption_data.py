@@ -301,7 +301,7 @@ def align_consumption(market, consumption):
 
 def main():
     print("=" * 70)
-    print("GRIDSIGNAL AI - CONSUMPTION DATA PREPARATION")
+    print("GRIDSIGNAL - CONSUMPTION DATA PREPARATION")
     print("=" * 70)
 
     market = load_market_data()
