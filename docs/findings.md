@@ -76,8 +76,6 @@ These comparisons use averages across observed hourly intervals within each pric
 
 However, the 30-hour threshold is a practical screening rule, not a formal statistical significance test. The eligible months are not independent experimental observations, and the analysis does not isolate solar generation from other potential influences. In particular, it does not control for time of day, demand, wind generation, conventional generation, or cross-border electricity flows.
 
-**Supporting analysis:** `monthly_solar_consistency_2024_2025.csv`
-
 ### Hourly timing
 
 An hourly analysis examined the proportion of observed intervals with negative prices at each German local hour. The rate was calculated separately for 2024 and 2025 using the observed intervals for each hour as the denominator.

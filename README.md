@@ -212,7 +212,6 @@ GridSignal_AI/
 │   ├── hourly_solar_by_price_category_2024_2025.csv
 │   ├── hourly_wind_by_price_category_2024_2025.csv
 │   ├── month_hour_solar_price_comparison_2024_2025.csv
-│   ├── monthly_solar_consistency_2024_2025.csv
 │   └── seasonal_price_and_solar_summary_2024_2025.csv
 ├── src/
 │   └── gridsignal/
@@ -230,9 +229,6 @@ GridSignal_AI/
 │       ├── combine_data.py
 │       ├── validate_merged_timestamps.py
 │       ├── analyze_prices.py
-│       ├── analyze_generation_by_price.py
-│       ├── analyze_monthly_generation.py
-│       ├── analyze_solar_consistency.py
 │       ├── analyze_hour_of_day.py
 │       ├── analyze_renewables_by_hour.py
 │       ├── analyze_wind_by_hour.py
@@ -305,9 +301,6 @@ python -m gridsignal.clean_generation
 python -m gridsignal.combine_data
 python -m gridsignal.analyze_prices
 python -m gridsignal.plot_negative_price_frequency
-python -m gridsignal.analyze_generation_by_price
-python -m gridsignal.analyze_monthly_generation
-python -m gridsignal.analyze_solar_consistency
 python -m gridsignal.analyze_hour_of_day
 python -m gridsignal.plot_negative_price_severity
 python -m gridsignal.plot_hour_of_day_analysis
