@@ -228,7 +228,6 @@ GridSignal_AI/
 │       ├── data_validation.py
 │       ├── combine_data.py
 │       ├── validate_merged_timestamps.py
-│       ├── analyze_prices.py
 │       ├── analyze_hour_of_day.py
 │       ├── analyze_renewables_by_hour.py
 │       ├── analyze_wind_by_hour.py
@@ -299,7 +298,6 @@ python -m gridsignal.inspect_data
 python -m gridsignal.clean_data
 python -m gridsignal.clean_generation
 python -m gridsignal.combine_data
-python -m gridsignal.analyze_prices
 python -m gridsignal.plot_negative_price_frequency
 python -m gridsignal.analyze_hour_of_day
 python -m gridsignal.plot_negative_price_severity

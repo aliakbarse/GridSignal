@@ -6,7 +6,6 @@ STAGES = [
     "clean_generation",
     "combine_data",
     "prepare_consumption_data",
-    "analyze_prices",
     "analyze_solar_controls",
     "analyze_residual_load",
     "analyze_hour_of_day",
