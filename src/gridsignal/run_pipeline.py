@@ -17,7 +17,7 @@ STAGES = [
     "analyze_demand_price",
     "plot_negative_price_frequency",
     "plot_negative_price_severity",
-    "plot_monthly_solar_comparison",
+    "plot_residual_load_bands",
     "plot_hour_of_day_analysis",
 ]
 

@@ -78,8 +78,6 @@ However, the 30-hour threshold is a practical screening rule, not a formal stati
 
 **Supporting analysis:** `monthly_solar_consistency_2024_2025.csv`
 
-**Visualization:** `monthly_solar_comparison_2024_2025.png`
-
 ### Hourly timing
 
 An hourly analysis examined the proportion of observed intervals with negative prices at each German local hour. The rate was calculated separately for 2024 and 2025 using the observed intervals for each hour as the denominator.

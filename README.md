@@ -130,12 +130,6 @@ Share of observed hourly intervals with day-ahead prices below 0 €/MWh by mont
 
 Annual distribution of negative-price hours across five price ranges.
 
-### Monthly solar-generation comparison
-
-![Monthly average solar generation during negative-price and non-negative-price hours](docs/monthly_solar_comparison_2024_2025.png)
-
-Average solar generation by month and price category. Values are interval averages, not monthly totals.
-
 ### Hour-of-day analysis
 
 ![Hourly negative-price frequency and solar generation by price category, 2024–2025](docs/hour_of_day_analysis_2024_2025.png)
@@ -210,7 +204,6 @@ GridSignal_AI/
 │   ├── SESSION_UPDATE_TEMPLATE_GridSignal_AI.md
 │   ├── negative_price_frequency_2024_2025.png
 │   ├── negative_price_severity_2024_2025.png
-│   ├── monthly_solar_comparison_2024_2025.png
 │   ├── hour_of_day_analysis_2024_2025.png
 │   ├── negative_price_comparison_2024_2025.csv
 │   ├── demand_price_analysis_2024_2025.csv
@@ -247,7 +240,6 @@ GridSignal_AI/
 │       ├── analyze_demand_price.py
 │       ├── plot_negative_price_frequency.py
 │       ├── plot_negative_price_severity.py
-│       ├── plot_monthly_solar_comparison.py
 │       └── plot_hour_of_day_analysis.py
 ├── tests/
 │   └── test_data_pipeline.py
@@ -318,7 +310,6 @@ python -m gridsignal.analyze_monthly_generation
 python -m gridsignal.analyze_solar_consistency
 python -m gridsignal.analyze_hour_of_day
 python -m gridsignal.plot_negative_price_severity
-python -m gridsignal.plot_monthly_solar_comparison
 python -m gridsignal.plot_hour_of_day_analysis
 ```
 
