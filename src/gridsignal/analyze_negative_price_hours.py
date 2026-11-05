@@ -1,64 +1,30 @@
-
-from pathlib import Path
-
 import pandas as pd
 
+from gridsignal import config
+from gridsignal.data_loader import load_market_data
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+OUTPUT_FILE = config.DOCS_DIR / "negative_price_comparison_2024_2025.csv"
 
-INPUT_FILE = (
-    PROJECT_ROOT
-    / "data"
-    / "processed"
-    / "germany_market_consumption_combined_2024_2025.csv"
-)
-
-OUTPUT_DIR = PROJECT_ROOT / "docs"
-
-OUTPUT_FILE = (
-    OUTPUT_DIR
-    / "negative_price_comparison_2024_2025.csv"
-)
+REQUIRED_COLUMNS = [
+    "price_eur_mwh",
+    "grid_load_mwh",
+    "renewables_selected_mwh",
+    "residual_load_mwh",
+]
 
 
 def load_data():
-    if not INPUT_FILE.exists():
-        raise FileNotFoundError(
-            f"Dataset not found:\n{INPUT_FILE}"
-        )
+    df = load_market_data(config.CONSUMPTION_COMBINED_FILE)
 
-    df = pd.read_csv(INPUT_FILE)
-
-    required_columns = [
-        "price_eur_mwh",
-        "grid_load_mwh",
-        "renewables_selected_mwh",
-        "residual_load_mwh",
-    ]
-
-    missing_columns = [
-        column
-        for column in required_columns
-        if column not in df.columns
-    ]
-
+    missing_columns = [c for c in REQUIRED_COLUMNS if c not in df.columns]
     if missing_columns:
-        raise ValueError(
-            f"Missing required columns: {missing_columns}"
-        )
+        raise ValueError(f"Missing required columns: {missing_columns}")
 
-    if df[required_columns].isna().any().any():
-        raise ValueError(
-            "Missing values found in required columns."
-        )
+    if df[REQUIRED_COLUMNS].isna().any().any():
+        raise ValueError("Missing values found in required columns.")
 
-    df["price_category"] = (
-        df["price_eur_mwh"]
-        .lt(0)
-        .map({
-            True: "Negative price",
-            False: "Non-negative price",
-        })
+    df["price_category"] = df["is_negative_price"].map(
+        {True: "Negative price", False: "Non-negative price"}
     )
 
     return df
@@ -126,10 +92,7 @@ def main():
 
     results = analyze_negative_prices(df)
 
-    OUTPUT_DIR.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
+    config.DOCS_DIR.mkdir(parents=True, exist_ok=True)
 
     results.to_csv(
         OUTPUT_FILE,
