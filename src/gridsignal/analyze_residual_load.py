@@ -4,6 +4,7 @@ from gridsignal import config
 from gridsignal.data_loader import load_market_data
 
 OUTPUT_FILE = config.DOCS_DIR / "price_by_residual_load_band_2024_2025.csv"
+CORRELATION_FILE = config.DOCS_DIR / "price_correlations_2024_2025.csv"
 
 # Fixed bands in MWh per hour (about MW). Edges are meaningful thresholds,
 # unlike quintiles, whose edges depend on this particular dataset.
@@ -34,6 +35,21 @@ def build_bands(df: pd.DataFrame) -> pd.DataFrame:
     table["negative_share_pct"] = table["negative_hours"] / table["hours"] * 100
     return table
 
+def build_correlations(df: pd.DataFrame) -> pd.DataFrame:
+    """Correlation of each driver with the day-ahead price."""
+    columns = [
+        "price_eur_mwh",
+        "grid_load_mwh",
+        "renewables_selected_mwh",
+        "residual_load_mwh",
+    ]
+    table = pd.DataFrame(
+        {
+            "pearson": df[columns].corr(method="pearson")["price_eur_mwh"],
+            "spearman": df[columns].corr(method="spearman")["price_eur_mwh"],
+        }
+    )
+    return table.drop(index="price_eur_mwh").rename_axis("variable").reset_index()
 
 def main() -> None:
     df = load_market_data(config.CONSUMPTION_COMBINED_FILE)
@@ -43,6 +59,11 @@ def main() -> None:
     table.to_csv(OUTPUT_FILE, index=False)
 
     print(table.round(1).to_string(index=False))
+
+    correlations = build_correlations(df)
+    correlations.to_csv(CORRELATION_FILE, index=False)
+    print()
+    print(correlations.round(3).to_string(index=False))
     print(f"\nSaved: {OUTPUT_FILE}")
 
 
