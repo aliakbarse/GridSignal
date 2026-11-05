@@ -208,18 +208,13 @@ GridSignal_AI/
 │   ├── negative_price_comparison_2024_2025.csv
 │   ├── demand_price_analysis_2024_2025.csv
 │   ├── hourly_negative_price_frequency_2024_2025.csv
-│   ├── hourly_renewables_by_price_category_2024_2025.csv
 │   ├── hourly_solar_by_price_category_2024_2025.csv
-│   ├── hourly_wind_by_price_category_2024_2025.csv
 │   ├── month_hour_solar_price_comparison_2024_2025.csv
 │   └── seasonal_price_and_solar_summary_2024_2025.csv
 ├── src/
 │   └── gridsignal/
 │       ├── __init__.py
 │       ├── main.py
-│       ├── inspect_data.py
-│       ├── inspect_consumption_data.py
-│       ├── inspect_market_timestamps.py
 │       ├── inspect_dst_consumption_alignment.py
 │       ├── inspect_raw_dst_rows.py
 │       ├── clean_data.py
@@ -227,10 +222,7 @@ GridSignal_AI/
 │       ├── prepare_consumption_data.py
 │       ├── data_validation.py
 │       ├── combine_data.py
-│       ├── validate_merged_timestamps.py
 │       ├── analyze_hour_of_day.py
-│       ├── analyze_renewables_by_hour.py
-│       ├── analyze_wind_by_hour.py
 │       ├── analyze_negative_price_hours.py
 │       ├── analyze_demand_price.py
 │       ├── plot_negative_price_frequency.py
@@ -294,7 +286,6 @@ These are local inputs and are not tracked in Git. Check the applicable source t
 Run from the repository root:
 
 ```powershell
-python -m gridsignal.inspect_data
 python -m gridsignal.clean_data
 python -m gridsignal.clean_generation
 python -m gridsignal.combine_data
@@ -348,11 +339,8 @@ These analyses are separate from the project's initialization entry point.
 The following scripts are available for inspecting timestamp alignment and daylight-saving-time records:
 
 ```powershell
-python -m gridsignal.inspect_market_timestamps
-python -m gridsignal.inspect_consumption_data
 python -m gridsignal.inspect_dst_consumption_alignment
 python -m gridsignal.inspect_raw_dst_rows
-python -m gridsignal.validate_merged_timestamps
 ```
 
 These are diagnostic tools rather than required stages of every analytics run. Review their output when investigating timestamp or DST-related questions.
