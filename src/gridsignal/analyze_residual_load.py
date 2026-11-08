@@ -49,7 +49,8 @@ def build_correlations(df: pd.DataFrame) -> pd.DataFrame:
             "spearman": df[columns].corr(method="spearman")["price_eur_mwh"],
         }
     )
-    return table.drop(index="price_eur_mwh").rename_axis("variable").reset_index()
+    table = table.drop(index="price_eur_mwh").round(3)
+    return table.rename_axis("variable").reset_index()
 
 def main() -> None:
     df = load_market_data(config.CONSUMPTION_COMBINED_FILE)
