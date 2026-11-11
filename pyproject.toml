@@ -5,11 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "gridsignal"
 version = "0.1.0"
-description = "An evidence-grounded intelligence assistant for German electricity markets."
+description = "Analytics on negative day-ahead electricity prices in Germany and their link to wind and solar generation."
 requires-python = ">=3.14"
 dependencies = [
     "pandas>=3.0",
     "matplotlib>=3.10",
+    "psycopg[binary]>=3.2",
+    "sqlalchemy>=2.0",
 ]
 
 [project.optional-dependencies]
