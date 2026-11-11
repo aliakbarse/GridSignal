@@ -8,6 +8,7 @@ STAGES = [
     "prepare_consumption_data",
     "analyze_solar_controls",
     "analyze_residual_load",
+    "analyze_low_residual_months",
     "analyze_hour_of_day",
     "analyze_negative_price_hours",
     "plot_negative_price_frequency",
