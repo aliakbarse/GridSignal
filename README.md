@@ -69,12 +69,39 @@ Low residual load alone stopped producing negative prices in July 2025. In hours
 - The pattern is not consistent: September 2025 had much higher neighbour prices but the same negative share as 2024, and May and June 2025 do not fit either. Without cross-border flow data this is a hint, not an explanation.
 - October 2025 is also affected by the switch to 15-minute products, and October 2024 has only 19 low-residual hours.
 
-### 6. Most negative prices are mild
+### 6. Solar earned about half the average price in 2025
+
+The capture rate is the average price solar output earned, weighted by how much it produced, divided by the simple average price of all hours. Below 1, solar produces when prices are lower than average.
+
+| Period | Capture rate 2024 | Capture rate 2025 | Solar output in negative-price hours, 2025 |
+|---|---:|---:|---:|
+| April | 0.62 | 0.40 | 32.6% |
+| May | 0.49 | 0.32 | 43.7% |
+| June | 0.61 | 0.31 | 46.9% |
+| July | 0.53 | 0.68 | 5.2% |
+| Whole year | 0.59 | 0.52 | 24.1% |
+
+- Solar's own weighted price was almost unchanged (46.2 €/MWh in 2024, 46.1 in 2025); the average price of all hours rose from 78.5 to 89.3, partly because of high winter prices.
+- The market value of solar output sold in negative-price hours was −178 million € in 2024 and −244 million € in 2025; April to June 2025 account for about 87% of the 2025 figure.
+- This is the value of all solar output at day-ahead prices, not what plant owners were paid: many plants have fixed feed-in tariffs.
+
+### 7. Most negative prices are mild
 
 ![Severity of negative prices](docs/negative_price_severity_2024_2025.png)
 
 - 70.0% of negative-price hours in 2024 and 76.4% in 2025 were between −10 and 0 €/MWh.
 - Hours below −100 €/MWh rose from 5 to 13, but remain rare. The lowest price was −250.32 €/MWh (2025).
+
+## What this means for a solar plant owner
+
+Written for an owner who sells at market prices; owners with fixed feed-in tariffs are affected differently.
+
+1. **Forecast revenue month by month.** The capture rate was 0.31–0.40 in April–June 2025 against 0.52 for the year, so a yearly average overstates spring revenue.
+2. **Watch residual load as the warning signal.** Below 5 GW, 638 of 882 hours (72%) had a negative price; above 20 GW, none did.
+3. **Treat negative-price hours as a contract question.** 24% of 2025 solar output, and 47% in June, was produced in negative-price hours, so curtailment terms and price-linked contracts matter.
+4. **Do not plan on July 2025 repeating.** The capture rate was 0.68 that month, but the cause is only partly understood.
+
+These are conclusions from descriptive data, not forecasts; storage and the midday-to-evening price gap are not yet analysed.
 
 See [detailed findings](docs/findings.md) for tables, method notes and limitations.
 
@@ -84,6 +111,7 @@ See [detailed findings](docs/findings.md) for tables, method notes and limitatio
 - Residual load subtracts only wind and solar, not hydro, biomass or imports.
 - Time of day and season are controlled in the solar comparison. Demand, wind, power-plant flexibility, cross-border flows and subsidy rules are not.
 - The July 2025 analysis uses neighbouring-zone prices from SMARD, not electricity flows, so it cannot show why prices differed.
+- The capture rate and the euro values use day-ahead prices for all solar output. They are not actual plant revenue, because feed-in tariffs, direct-marketing contracts and curtailment rules are not modelled.
 - Negative means strictly below €0/MWh. Counting zero-price hours as well would give 519 (2024) and 655 (2025) hours.
 - From 1 October 2025 the market uses 15-minute products; hourly values after that date average four quarter-hours.
 
@@ -120,7 +148,9 @@ GridSignal/
 │   ├── solar_comparison_controls_2024_2025.csv
 │   ├── hourly_negative_price_frequency_2024_2025.csv
 │   ├── hourly_solar_by_price_category_2024_2025.csv
-│   └── low_residual_hours_by_month_2024_2025.csv
+│   ├── low_residual_hours_by_month_2024_2025.csv
+│   ├── solar_capture_rate_2024_2025.csv
+│   └── solar_capture_rate_by_month_2024_2025.csv
 ├── src/
 │   └── gridsignal/
 │       ├── __init__.py
@@ -134,6 +164,7 @@ GridSignal/
 │       ├── analyze_solar_controls.py
 │       ├── analyze_residual_load.py
 │       ├── analyze_low_residual_months.py
+│       ├── analyze_capture_rate.py
 │       ├── analyze_negative_price_hours.py
 │       ├── analyze_hour_of_day.py
 │       ├── plot_negative_price_frequency.py
@@ -225,7 +256,7 @@ These are diagnostic tools, not required stages of a normal run.
 
 ## Next Steps
 
-Planned, not yet implemented: weekend, holiday and night-time analysis, a business view of solar capture rates, a SQL layer (PostgreSQL), a Power BI dashboard and automated checks on every commit.
+Planned, not yet implemented: weekend, holiday and night-time analysis, a SQL layer (PostgreSQL), a Power BI dashboard, an analysis of the midday-to-evening price gap for storage, and automated checks on every commit.
 
 ## License
 

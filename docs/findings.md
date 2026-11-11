@@ -151,7 +151,40 @@ Residual load was the best separator of negative-price hours (Finding One), so t
 
 **Supporting file:** `low_residual_hours_by_month_2024_2025.csv`
 
-## 7. Finding Five: Most Negative Prices Are Mild
+## 7. Finding Five: Solar Earned About Half the Average Price in 2025
+
+The capture rate is the average price solar output earned, weighted by hourly solar output, divided by the simple average price of all hours. A value below 1 means solar produces when prices are lower than average.
+
+| Year | Average price (€/MWh) | Solar-weighted price (€/MWh) | Capture rate | Solar output in negative-price hours | Value of that output (million €) |
+|---|---:|---:|---:|---:|---:|
+| 2024 | 78.5 | 46.2 | 0.589 | 18.4% | −178.0 |
+| 2025 | 89.3 | 46.1 | 0.516 | 24.1% | −244.0 |
+
+Monthly capture rates for the main solar months:
+
+| Month | Capture rate 2024 | Capture rate 2025 | Solar-weighted price 2025 (€/MWh) | Average price 2025 (€/MWh) | Solar output in negative-price hours 2025 |
+|---|---:|---:|---:|---:|---:|
+| March | 0.765 | 0.537 | 50.8 | 94.7 | 13.4% |
+| April | 0.621 | 0.402 | 31.3 | 77.9 | 32.6% |
+| May | 0.488 | 0.322 | 21.7 | 67.3 | 43.7% |
+| June | 0.610 | 0.313 | 20.1 | 64.0 | 46.9% |
+| July | 0.529 | 0.681 | 59.8 | 87.8 | 5.2% |
+| August | 0.526 | 0.507 | 39.1 | 77.0 | 22.2% |
+| September | 0.577 | 0.530 | 44.3 | 83.5 | 24.5% |
+| October | 0.783 | 0.850 | 71.7 | 84.4 | 8.7% |
+
+**What the data show:**
+
+- Solar's own weighted price was almost unchanged (46.2 and 46.1 €/MWh). The capture rate fell because the average price of all hours rose, partly through high winter prices (January 2025 114.1 and February 128.5 €/MWh) when solar produces little.
+- April to June 2025 had the lowest capture rates (0.31–0.40, against 0.49–0.62 in 2024). These three months account for −212.5 of the −244.0 million € value at negative prices (about 87%), against about 63% in 2024.
+- July 2025 is the one summer month where the capture rate improved (0.68 against 0.53), the same month in which negative prices dropped (Finding Four, follow-up).
+- Between November and February the capture rate is 0.86–1.03, so most of the loss of value is a spring and summer effect.
+
+**Caveats:** The euro values are the market value of all solar output at day-ahead prices. They are not actual plant revenue, because feed-in tariffs, direct-marketing contracts and curtailment rules are not modelled. Solar output is the SMARD actual generation figure. Month-level figures rest on 24 months of data.
+
+**Supporting files:** `solar_capture_rate_2024_2025.csv`, `solar_capture_rate_by_month_2024_2025.csv`
+
+## 8. Finding Six: Most Negative Prices Are Mild
 
 | Negative-price range | 2024 hours | 2024 share | 2025 hours | 2025 share |
 |---|---:|---:|---:|---:|
@@ -166,7 +199,20 @@ Percentages describe negative-price hours only, not all hours. Mild prices betwe
 
 ![Severity of negative prices](negative_price_severity_2024_2025.png)
 
-## 8. Data Coverage and Limitations
+## 9. What This Means for a Solar Plant Owner
+
+Written for an owner who sells at market prices; owners on fixed feed-in tariffs are affected differently. These are conclusions from descriptive data, not forecasts.
+
+| # | Recommendation | Evidence |
+|---|---|---|
+| 1 | Forecast revenue month by month, not with a yearly average. | Capture rate 0.31–0.40 in April–June 2025, against 0.52 for the year. |
+| 2 | Use residual load as a warning signal for negative prices. | Below 5 GW, 638 of 882 hours (72%) were negative; above 20 GW, none were. |
+| 3 | Treat negative-price hours as a contract and curtailment question. | 24.1% of 2025 solar output (46.9% in June) was produced in negative-price hours, valued at −244 million €. |
+| 4 | Do not plan on July 2025 repeating. | Capture rate was 0.68, the only summer improvement, and its cause is only partly explained. |
+
+**Not yet analysed:** whether storage could capture the midday-to-evening price gap. This needs a separate analysis of price spreads within the day.
+
+## 10. Data Coverage and Limitations
 
 - The combined dataset has 17,544 matched hourly records: 8,784 in 2024 (a leap year) and 8,760 in 2025.
 - Prices, generation and consumption are matched on UTC timestamps. The UTC timeline has no duplicates and no gaps. Calendar analysis uses `Europe/Berlin` local time.
@@ -176,15 +222,18 @@ Percentages describe negative-price hours only, not all hours. Mild prices betwe
 - Residual load subtracts only wind and solar. Hydro, biomass, imports and exports are not included, and the generation measures are not total supply.
 - The controlled solar comparisons hold time of day and season constant. They do not control for demand, wind, conventional generation, storage, cross-border flows or subsidy rules.
 - The July 2025 analysis uses the SMARD average price of neighbouring zones. It has no flow, outage or fuel-price data, so it cannot show why neighbouring prices differed.
+- The capture rate and euro values apply day-ahead prices to all solar output. They are not plant revenue, because feed-in tariffs, direct-marketing contracts, curtailment and intraday trading are not modelled.
 - Some groups are small, such as the weekend comparisons (58 and 77 other hours), overnight hours with few negative prices and October 2024 (19 low-residual hours).
 - February, November and December 2025 had no negative-price hours, so no negative-versus-other comparison exists for those months.
 - Before commercial use, check the original SMARD field definitions and units.
 - Two years of data should not be assumed to represent future market conditions.
 
-## 9. Conclusion
+## 11. Conclusion
 
 Negative prices in 2024–2025 occurred almost entirely when wind and solar covered most of demand: 89% of negative-price hours had a residual load below 10 GW, and none occurred above 20 GW. Solar output alone explains much less than the raw comparison suggests, because most of its apparent effect comes from timing at midday in spring and summer. Negative prices cluster between 10:00 and 17:00, rose in spring 2025 and remained mostly mild.
 
 The sharp drop in July 2025 is only partly explained: at the same low residual load, far fewer hours had negative prices, and neighbouring zones' prices in those hours were much higher. That is consistent with negative prices needing a market-wide surplus, but September 2025 and the spring months do not follow the same pattern, and no flow data were available to test it.
 
-These findings describe associations in two years of hourly data. Next steps are to examine weekends, holidays and night-time wind, and to translate the findings into questions for market participants.
+For a solar plant owner selling at market prices, the cost is concentrated in spring: the capture rate fell from 0.59 to 0.52 over the year and to 0.31–0.40 in April–June 2025, and 24% of 2025 solar output was produced in negative-price hours.
+
+These findings describe associations in two years of hourly data. Next steps are to examine weekends, holidays and night-time wind, and to analyse the midday-to-evening price gap for storage.
