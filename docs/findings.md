@@ -199,7 +199,43 @@ Percentages describe negative-price hours only, not all hours. Mild prices betwe
 
 ![Severity of negative prices](negative_price_severity_2024_2025.png)
 
-## 9. What This Means for a Solar Plant Owner
+## 9. Finding Seven: Negative Prices Are About Three Times as Common on Weekends
+
+These results come from SQL queries on the PostgreSQL layer (`sql/05_weekend_effect.sql` and `sql/04_longest_negative_runs.sql`). Weekend means Saturday or Sunday in German local time. Public holidays are not in the data and are not analysed.
+
+| Hours compared | Day type | Hours | Share of hours | Negative hours | Negative rate |
+|---|---|---:|---:|---:|---:|
+| All hours | Weekend | 4,992 | 28.5% | 604 | 12.1% |
+| All hours | Weekday | 12,552 | 71.5% | 426 | 3.4% |
+| Midday (11:00–14:59), April–September | Weekend | 416 | 28.4% | 281 | 67.5% |
+| Midday (11:00–14:59), April–September | Weekday | 1,048 | 71.6% | 239 | 22.8% |
+
+The midday April–September counts (281 and 239 negative hours) match the weekend and weekday counts in Finding Two, which is a check on the SQL. Finding Two asks a different question, whether solar output differs within negative-price hours, and found no weekend effect there. Finding Seven asks how often negative prices occur, and the answer is much more often on weekends.
+
+### Longest unbroken runs of negative prices
+
+| Hours | Start (local) | End (local) | Average price (€/MWh) | Lowest price (€/MWh) |
+|---:|---|---|---:|---:|
+| 20 | 2025-10-04 21:00 | 2025-10-05 16:00 | −2.3 | −5.0 |
+| 18 | 2024-07-07 00:00 | 2024-07-07 17:00 | −5.9 | −22.4 |
+| 17 | 2025-10-04 01:00 | 2025-10-04 17:00 | −0.7 | −2.6 |
+| 16 | 2024-08-25 01:00 | 2024-08-25 16:00 | −5.7 | −20.0 |
+| 16 | 2024-10-13 01:00 | 2024-10-13 16:00 | −3.1 | −15.7 |
+| 14 | 2025-01-01 03:00 | 2025-01-01 16:00 | −0.1 | −1.0 |
+| 10 | 2024-04-28 08:00 | 2024-04-28 17:00 | −31.6 | −65.1 |
+| 10 | 2024-06-09 08:00 | 2024-06-09 17:00 | −15.5 | −37.1 |
+| 10 | 2024-06-15 09:00 | 2024-06-15 18:00 | −32.0 | −80.0 |
+| 10 | 2024-06-16 08:00 | 2024-06-16 17:00 | −15.2 | −35.7 |
+
+All ten runs started on a Saturday, a Sunday or New Year's Day. The longest runs are mild and the deepest are short. Several long runs start at 01:00, so they are not only a solar effect.
+
+**Interpretation:** Weekends hold 28.5% of hours but 58.6% of negative-price hours, and the difference remains when time of day and season are held constant. Lower weekend demand is a plausible explanation, but demand is not tested in these queries.
+
+**Caveats:** A run ends at any hour with a price of zero or above, so zero-price hours split runs. The 4–5 October 2025 run falls after the switch to 15-minute products, so its hourly values are averages. The top ten runs are a small set of examples.
+
+**Supporting files:** `sql/04_longest_negative_runs.sql`, `sql/05_weekend_effect.sql`
+
+## 10. What This Means for a Solar Plant Owner
 
 Written for an owner who sells at market prices; owners on fixed feed-in tariffs are affected differently. These are conclusions from descriptive data, not forecasts.
 
@@ -209,10 +245,11 @@ Written for an owner who sells at market prices; owners on fixed feed-in tariffs
 | 2 | Use residual load as a warning signal for negative prices. | Below 5 GW, 638 of 882 hours (72%) were negative; above 20 GW, none were. |
 | 3 | Treat negative-price hours as a contract and curtailment question. | 24.1% of 2025 solar output (46.9% in June) was produced in negative-price hours, valued at −244 million €. |
 | 4 | Do not plan on July 2025 repeating. | Capture rate was 0.68, the only summer improvement, and its cause is only partly explained. |
+| 5 | Plan weekends separately. | In April–September middays, 67.5% of weekend hours had a negative price against 22.8% of weekday hours. |
 
 **Not yet analysed:** whether storage could capture the midday-to-evening price gap. This needs a separate analysis of price spreads within the day.
 
-## 10. Data Coverage and Limitations
+## 11. Data Coverage and Limitations
 
 - The combined dataset has 17,544 matched hourly records: 8,784 in 2024 (a leap year) and 8,760 in 2025.
 - Prices, generation and consumption are matched on UTC timestamps. The UTC timeline has no duplicates and no gaps. Calendar analysis uses `Europe/Berlin` local time.
@@ -223,12 +260,13 @@ Written for an owner who sells at market prices; owners on fixed feed-in tariffs
 - The controlled solar comparisons hold time of day and season constant. They do not control for demand, wind, conventional generation, storage, cross-border flows or subsidy rules.
 - The July 2025 analysis uses the SMARD average price of neighbouring zones. It has no flow, outage or fuel-price data, so it cannot show why neighbouring prices differed.
 - The capture rate and euro values apply day-ahead prices to all solar output. They are not plant revenue, because feed-in tariffs, direct-marketing contracts, curtailment and intraday trading are not modelled.
+- The weekend comparison covers Saturdays and Sundays only. Public holidays are not analysed, and the reason for the weekend effect (demand, wind or both) is not tested.
 - Some groups are small, such as the weekend comparisons (58 and 77 other hours), overnight hours with few negative prices and October 2024 (19 low-residual hours).
 - February, November and December 2025 had no negative-price hours, so no negative-versus-other comparison exists for those months.
 - Before commercial use, check the original SMARD field definitions and units.
 - Two years of data should not be assumed to represent future market conditions.
 
-## 11. Conclusion
+## 12. Conclusion
 
 Negative prices in 2024–2025 occurred almost entirely when wind and solar covered most of demand: 89% of negative-price hours had a residual load below 10 GW, and none occurred above 20 GW. Solar output alone explains much less than the raw comparison suggests, because most of its apparent effect comes from timing at midday in spring and summer. Negative prices cluster between 10:00 and 17:00, rose in spring 2025 and remained mostly mild.
 
@@ -236,4 +274,6 @@ The sharp drop in July 2025 is only partly explained: at the same low residual l
 
 For a solar plant owner selling at market prices, the cost is concentrated in spring: the capture rate fell from 0.59 to 0.52 over the year and to 0.31–0.40 in April–June 2025, and 24% of 2025 solar output was produced in negative-price hours.
 
-These findings describe associations in two years of hourly data. Next steps are to examine weekends, holidays and night-time wind, and to analyse the midday-to-evening price gap for storage.
+Negative prices are also about three times as common on weekends (12.1% of hours against 3.4%), and all ten of the longest unbroken runs started on a weekend or public holiday.
+
+These findings describe associations in two years of hourly data. Next steps are to examine public holidays and night-time wind, and to analyse the midday-to-evening price gap for storage.

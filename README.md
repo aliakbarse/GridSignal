@@ -92,6 +92,19 @@ The capture rate is the average price solar output earned, weighted by how much 
 - 70.0% of negative-price hours in 2024 and 76.4% in 2025 were between −10 and 0 €/MWh.
 - Hours below −100 €/MWh rose from 5 to 13, but remain rare. The lowest price was −250.32 €/MWh (2025).
 
+### 8. Negative prices are about three times as common on weekends
+
+Found with SQL queries on the PostgreSQL layer (see [SQL layer](#sql-layer)).
+
+| Hours compared | Weekend | Weekday |
+|---|---:|---:|
+| All hours | 12.1% negative (604 of 4,992) | 3.4% negative (426 of 12,552) |
+| Midday (11:00–14:59), April–September | 67.5% negative (281 of 416) | 22.8% negative (239 of 1,048) |
+
+- Weekends are 28.5% of all hours but contain 58.6% of the negative-price hours.
+- All ten longest unbroken runs of negative prices (10 to 20 hours) started on a weekend or public holiday. The longest ran 20 hours, from the evening of 4 October to the afternoon of 5 October 2025, at an average of −2.3 €/MWh. Long runs tend to be mild; the deepest ones are short.
+- Lower weekend demand is a likely reason, but it is not tested here, and public holidays are not analysed beyond these examples.
+
 ## What this means for a solar plant owner
 
 Written for an owner who sells at market prices; owners with fixed feed-in tariffs are affected differently.
@@ -100,6 +113,7 @@ Written for an owner who sells at market prices; owners with fixed feed-in tarif
 2. **Watch residual load as the warning signal.** Below 5 GW, 638 of 882 hours (72%) had a negative price; above 20 GW, none did.
 3. **Treat negative-price hours as a contract question.** 24% of 2025 solar output, and 47% in June, was produced in negative-price hours, so curtailment terms and price-linked contracts matter.
 4. **Do not plan on July 2025 repeating.** The capture rate was 0.68 that month, but the cause is only partly understood.
+5. **Plan weekends separately.** In April–September middays, 67.5% of weekend hours had a negative price against 22.8% of weekday hours.
 
 These are conclusions from descriptive data, not forecasts; storage and the midday-to-evening price gap are not yet analysed.
 
@@ -112,6 +126,7 @@ See [detailed findings](docs/findings.md) for tables, method notes and limitatio
 - Time of day and season are controlled in the solar comparison. Demand, wind, power-plant flexibility, cross-border flows and subsidy rules are not.
 - The July 2025 analysis uses neighbouring-zone prices from SMARD, not electricity flows, so it cannot show why prices differed.
 - The capture rate and the euro values use day-ahead prices for all solar output. They are not actual plant revenue, because feed-in tariffs, direct-marketing contracts and curtailment rules are not modelled.
+- The weekend comparison uses Saturday and Sunday only; public holidays are not analysed, and the reason for the weekend effect is not tested.
 - Negative means strictly below €0/MWh. Counting zero-price hours as well would give 519 (2024) and 655 (2025) hours.
 - From 1 October 2025 the market uses 15-minute products; hourly values after that date average four quarter-hours.
 
@@ -126,6 +141,7 @@ The full list is in [docs/findings.md](docs/findings.md).
 3. **Combine** prices, generation and consumption on UTC timestamps (17,544 matched hourly rows: 8,784 in 2024 and 8,760 in 2025).
 4. **Analyze** with grouped, controlled comparisons and fixed residual-load bands.
 5. **Visualize** each finding with one chart whose numbers are computed from the data.
+6. **Store and query** the combined hourly data in PostgreSQL, where SQL queries reproduce key results and answer further questions.
 
 Calendar analysis uses `Europe/Berlin` local time. All scripts read data through one shared loader, and `run_pipeline.py` runs the whole workflow in order.
 
@@ -171,9 +187,16 @@ GridSignal/
 │       ├── plot_negative_price_severity.py
 │       ├── plot_residual_load_bands.py
 │       ├── plot_hour_of_day_analysis.py
+│       ├── load_to_postgres.py
 │       ├── inspect_dst_consumption_alignment.py
 │       ├── inspect_raw_dst_rows.py
 │       └── run_pipeline.py
+├── sql/
+│   ├── 01_schema.sql
+│   ├── 02_residual_load_bands.sql
+│   ├── 03_solar_capture_rate.sql
+│   ├── 04_longest_negative_runs.sql
+│   └── 05_weekend_effect.sql
 ├── tests/
 ├── .gitignore
 ├── pyproject.toml
@@ -254,9 +277,31 @@ python -m gridsignal.inspect_raw_dst_rows
 
 These are diagnostic tools, not required stages of a normal run.
 
+## SQL layer
+
+The Python workflow does not need a database. The SQL layer is a second route to the same data: it loads the combined hourly dataset into PostgreSQL, reproduces key results with SQL (the numbers match the Python outputs) and answers further questions. It needs PostgreSQL 12 or later (developed on 18) and a database named `gridsignal`.
+
+| File | What it does |
+|---|---|
+| `sql/01_schema.sql` | Creates the table `market_hours` (raw measurements, UTC timestamp as primary key) and the view `market_hours_local` (German local time, year, month, hour). |
+| `sql/02_residual_load_bands.sql` | Share of negative-price hours by residual-load band; matches Finding 1. |
+| `sql/03_solar_capture_rate.sql` | Solar capture rate and value at negative prices by year; matches Finding 6. |
+| `sql/04_longest_negative_runs.sql` | Longest unbroken runs of negative-price hours, using the gaps-and-islands technique. |
+| `sql/05_weekend_effect.sql` | Negative-price rate on weekends and weekdays, for all hours and for April–September middays. |
+
+```powershell
+$env:PGPASSWORD = "your-password"   # set in this session only; never commit it
+psql -U postgres -c "CREATE DATABASE gridsignal;"
+psql -U postgres -d gridsignal -f sql/01_schema.sql
+python -m gridsignal.load_to_postgres
+psql -U postgres -d gridsignal -f sql/02_residual_load_bands.sql
+```
+
+The loader reads the connection settings from the standard PostgreSQL environment variables (`PGHOST`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`) and replaces the table contents on every run. It expects 17,544 rows and 1,030 negative-price hours.
+
 ## Next Steps
 
-Planned, not yet implemented: weekend, holiday and night-time analysis, a SQL layer (PostgreSQL), a Power BI dashboard, an analysis of the midday-to-evening price gap for storage, and automated checks on every commit.
+Planned, not yet implemented: holiday and night-time analysis, a Power BI dashboard, an analysis of the midday-to-evening price gap for storage, and automated checks on every commit.
 
 ## License
 
