@@ -48,10 +48,28 @@ In 2024 the same steps give 4.11×, 1.72× and 1.16×. Values are average solar 
 ![Monthly frequency of negative prices](docs/negative_price_frequency_2024_2025.png)
 
 - Negative-price hours rose from 457 in 2024 to 573 in 2025 (+116, or +25.4%).
-- April to June added 153 hours, partly offset by July, which fell from 81 hours to 12. The July drop is not yet explained.
+- April to June added 153 hours, partly offset by July, which fell from 81 hours to 12.
 - February, November and December 2025 had no negative-price hours.
 
-### 5. Most negative prices are mild
+### 5. The July 2025 drop is only partly explained
+
+Low residual load alone stopped producing negative prices in July 2025. In hours with residual load below 10 GW (April–October), the share with a negative price was:
+
+| Month | 2024 | 2025 | Neighbours' median price, 2024 → 2025 (€/MWh) |
+|---|---:|---:|---|
+| May | 76.8% | 73.0% | 3.0 → 8.9 |
+| June | 76.5% | 70.8% | 0.6 → 4.9 |
+| July | 78.0% | 19.7% | −0.1 → 17.0 |
+| August | 77.6% | 44.7% | 3.3 → 7.8 |
+| September | 52.5% | 53.1% | 5.0 → 22.7 |
+| October | 94.7% | 33.8% | 0.5 → 29.9 |
+
+- Of the 69-hour fall in July, 52 hours were low-residual-load hours that no longer had a negative price, and the number of low-residual-load hours also fell (82 → 61).
+- In those hours, the average price in neighbouring zones was much higher in July 2025 than in July 2024. That fits the idea that negative prices need a surplus across the coupled market, not only in Germany.
+- The pattern is not consistent: September 2025 had much higher neighbour prices but the same negative share as 2024, and May and June 2025 do not fit either. Without cross-border flow data this is a hint, not an explanation.
+- October 2025 is also affected by the switch to 15-minute products, and October 2024 has only 19 low-residual hours.
+
+### 6. Most negative prices are mild
 
 ![Severity of negative prices](docs/negative_price_severity_2024_2025.png)
 
@@ -65,6 +83,7 @@ See [detailed findings](docs/findings.md) for tables, method notes and limitatio
 - Two years of data; the results describe associations, not causes.
 - Residual load subtracts only wind and solar, not hydro, biomass or imports.
 - Time of day and season are controlled in the solar comparison. Demand, wind, power-plant flexibility, cross-border flows and subsidy rules are not.
+- The July 2025 analysis uses neighbouring-zone prices from SMARD, not electricity flows, so it cannot show why prices differed.
 - Negative means strictly below €0/MWh. Counting zero-price hours as well would give 519 (2024) and 655 (2025) hours.
 - From 1 October 2025 the market uses 15-minute products; hourly values after that date average four quarter-hours.
 
@@ -72,7 +91,7 @@ The full list is in [docs/findings.md](docs/findings.md).
 
 ## Data and Method
 
-**Source:** [SMARD](https://www.smard.de/en), Germany/Luxembourg bidding zone, hourly data for 2024–2025: day-ahead prices, actual offshore wind, onshore wind and solar generation, and actual grid consumption. The selected generation measures are not total supply.
+**Source:** [SMARD](https://www.smard.de/en), Germany/Luxembourg bidding zone, hourly data for 2024–2025: day-ahead prices (including the average price of neighbouring zones), actual offshore wind, onshore wind and solar generation, and actual grid consumption. The selected generation measures are not total supply.
 
 1. **Clean** timestamps and numeric values for each source file.
 2. **Validate** required columns, duplicate timestamps and interval continuity.
@@ -100,7 +119,8 @@ GridSignal/
 │   ├── price_correlations_2024_2025.csv
 │   ├── solar_comparison_controls_2024_2025.csv
 │   ├── hourly_negative_price_frequency_2024_2025.csv
-│   └── hourly_solar_by_price_category_2024_2025.csv
+│   ├── hourly_solar_by_price_category_2024_2025.csv
+│   └── low_residual_hours_by_month_2024_2025.csv
 ├── src/
 │   └── gridsignal/
 │       ├── __init__.py
@@ -113,6 +133,7 @@ GridSignal/
 │       ├── prepare_consumption_data.py
 │       ├── analyze_solar_controls.py
 │       ├── analyze_residual_load.py
+│       ├── analyze_low_residual_months.py
 │       ├── analyze_negative_price_hours.py
 │       ├── analyze_hour_of_day.py
 │       ├── plot_negative_price_frequency.py
@@ -204,7 +225,7 @@ These are diagnostic tools, not required stages of a normal run.
 
 ## Next Steps
 
-Planned, not yet implemented: weekend, holiday and night-time analysis, an explanation of the July 2025 drop, a business view of solar capture rates, a SQL layer and automated checks on every commit.
+Planned, not yet implemented: weekend, holiday and night-time analysis, a business view of solar capture rates, a SQL layer (PostgreSQL), a Power BI dashboard and automated checks on every commit.
 
 ## License
 

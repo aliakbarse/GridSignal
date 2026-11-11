@@ -108,11 +108,50 @@ Negative-price hours rose from 457 in 2024 to 573 in 2025 (+116, or +25.4%).
 | November | 11 | 1.53% | 0 | 0.00% |
 | December | 8 | 1.08% | 0 | 0.00% |
 
-April to June added 153 hours (192 in 2024, 345 in 2025). July 2025 fell by 69 hours compared with July 2024, which offsets part of that gain; the other months net to +32. June 2025 had the highest monthly frequency in the dataset (19.58%), and the July 2025 drop is not yet explained.
+April to June added 153 hours (192 in 2024, 345 in 2025). July 2025 fell by 69 hours compared with July 2024, which offsets part of that gain; the other months net to +32. June 2025 had the highest monthly frequency in the dataset (19.58%). The July drop is examined in the next section.
 
 ![Monthly frequency of negative prices](negative_price_frequency_2024_2025.png)
 
-## 6. Finding Five: Most Negative Prices Are Mild
+## 6. Finding Four, Follow-Up: The July 2025 Drop Is Only Partly Explained
+
+Residual load was the best separator of negative-price hours (Finding One), so the first question is whether July 2025 simply had fewer low-residual hours. It did, but that is a small part of the story. The table below keeps only hours with residual load below 10 GW, April–October, and compares them with the average day-ahead price of the neighbouring zones in the same hours. "Spread" is the neighbours' median price minus Germany's median price.
+
+| Month | Year | Low-residual hours | Negative hours | Share negative | Germany median (€/MWh) | Neighbours median (€/MWh) | Spread (€/MWh) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| April | 2024 | 79 | 42 | 53.2% | −0.1 | 7.0 | 11.1 |
+| April | 2025 | 93 | 74 | 79.6% | −3.0 | 1.0 | 7.3 |
+| May | 2024 | 82 | 63 | 76.8% | −1.6 | 3.0 | 8.4 |
+| May | 2025 | 163 | 119 | 73.0% | −1.1 | 8.9 | 13.5 |
+| June | 2024 | 68 | 52 | 76.5% | −3.6 | 0.6 | 7.9 |
+| June | 2025 | 185 | 131 | 70.8% | −1.0 | 4.9 | 8.5 |
+| July | 2024 | 82 | 64 | 78.0% | −3.1 | −0.1 | 5.3 |
+| July | 2025 | 61 | 12 | 19.7% | 2.4 | 17.0 | 8.0 |
+| August | 2024 | 76 | 59 | 77.6% | −4.2 | 3.3 | 6.9 |
+| August | 2025 | 132 | 59 | 44.7% | 0.0 | 7.8 | 6.9 |
+| September | 2024 | 59 | 31 | 52.5% | −0.0 | 5.0 | 3.7 |
+| September | 2025 | 113 | 60 | 53.1% | −0.0 | 22.7 | 18.4 |
+| October | 2024 | 19 | 18 | 94.7% | −0.4 | 0.5 | 5.2 |
+| October | 2025 | 142 | 48 | 33.8% | 1.6 | 29.9 | 22.5 |
+
+**What the data show:**
+
+- In July 2024, 64 of 82 low-residual hours (78.0%) had a negative price. In July 2025 it was 12 of 61 (19.7%).
+- Of the 69-hour fall in July negative-price hours (81 to 12), 52 hours came from low-residual hours (64 to 12) and 17 from other hours (17 to 0). Low-residual hours were also fewer (82 to 61).
+- In July 2025 the neighbouring zones' median price in those hours was 17.0 €/MWh, against −0.1 in July 2024. Germany's own median rose from −3.1 to +2.4.
+- The gap between Germany and its neighbours did not widen much in July (5.3 to 8.0 €/MWh). This does not support the idea that German surplus was being absorbed by exports.
+
+**Interpretation:** When German residual load was low in July 2025, the surrounding markets did not have a matching surplus, and German prices stayed positive with them. A plausible reading is that negative prices need a surplus across the coupled market, not only in Germany.
+
+**Caveats:**
+
+- The pattern is not consistent. In September 2025 the neighbours' median was far higher than in 2024 (22.7 against 5.0) but the negative share was unchanged (53.1% against 52.5%), and May and June 2025 do not fit either. This is a hint, not an explanation.
+- The data contain prices of neighbouring zones but no cross-border flows, outages or fuel prices, so the reason for the higher prices is not tested.
+- October 2025 is affected by the switch to 15-minute products, and October 2024 has only 19 low-residual hours.
+- Residual load below 10 GW is an hourly national average; negative means strictly below €0/MWh.
+
+**Supporting file:** `low_residual_hours_by_month_2024_2025.csv`
+
+## 7. Finding Five: Most Negative Prices Are Mild
 
 | Negative-price range | 2024 hours | 2024 share | 2025 hours | 2025 share |
 |---|---:|---:|---:|---:|
@@ -127,7 +166,7 @@ Percentages describe negative-price hours only, not all hours. Mild prices betwe
 
 ![Severity of negative prices](negative_price_severity_2024_2025.png)
 
-## 7. Data Coverage and Limitations
+## 8. Data Coverage and Limitations
 
 - The combined dataset has 17,544 matched hourly records: 8,784 in 2024 (a leap year) and 8,760 in 2025.
 - Prices, generation and consumption are matched on UTC timestamps. The UTC timeline has no duplicates and no gaps. Calendar analysis uses `Europe/Berlin` local time.
@@ -136,13 +175,16 @@ Percentages describe negative-price hours only, not all hours. Mild prices betwe
 - From 1 October 2025 the day-ahead market uses 15-minute products, and hourly values after that date average four quarter-hours.
 - Residual load subtracts only wind and solar. Hydro, biomass, imports and exports are not included, and the generation measures are not total supply.
 - The controlled solar comparisons hold time of day and season constant. They do not control for demand, wind, conventional generation, storage, cross-border flows or subsidy rules.
-- Some groups are small, such as the weekend comparisons (58 and 77 other hours) and overnight hours with few negative prices.
+- The July 2025 analysis uses the SMARD average price of neighbouring zones. It has no flow, outage or fuel-price data, so it cannot show why neighbouring prices differed.
+- Some groups are small, such as the weekend comparisons (58 and 77 other hours), overnight hours with few negative prices and October 2024 (19 low-residual hours).
 - February, November and December 2025 had no negative-price hours, so no negative-versus-other comparison exists for those months.
 - Before commercial use, check the original SMARD field definitions and units.
 - Two years of data should not be assumed to represent future market conditions.
 
-## 8. Conclusion
+## 9. Conclusion
 
-Negative prices in 2024–2025 occurred almost entirely when wind and solar covered most of demand: 89% of negative-price hours had a residual load below 10 GW, and none occurred above 20 GW. Solar output alone explains much less than the raw comparison suggests, because most of its apparent effect comes from timing at midday in spring and summer. Negative prices cluster between 10:00 and 17:00, rose in spring 2025 and remained mostly mild, although the sharp drop in July 2025 is still unexplained.
+Negative prices in 2024–2025 occurred almost entirely when wind and solar covered most of demand: 89% of negative-price hours had a residual load below 10 GW, and none occurred above 20 GW. Solar output alone explains much less than the raw comparison suggests, because most of its apparent effect comes from timing at midday in spring and summer. Negative prices cluster between 10:00 and 17:00, rose in spring 2025 and remained mostly mild.
 
-These findings describe associations in two years of hourly data. Next steps are to examine weekends, holidays and night-time wind, to look into the July 2025 drop, and to translate the findings into questions for market participants.
+The sharp drop in July 2025 is only partly explained: at the same low residual load, far fewer hours had negative prices, and neighbouring zones' prices in those hours were much higher. That is consistent with negative prices needing a market-wide surplus, but September 2025 and the spring months do not follow the same pattern, and no flow data were available to test it.
+
+These findings describe associations in two years of hourly data. Next steps are to examine weekends, holidays and night-time wind, and to translate the findings into questions for market participants.
