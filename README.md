@@ -1,8 +1,10 @@
 # GridSignal
 
-**German Electricity Market Analytics · Python · pandas · matplotlib · pytest**
+**German Electricity Market Analytics · Python · pandas · matplotlib · PostgreSQL · SQL · Power BI · pytest**
 
-Negative day-ahead electricity prices in Germany appear when wind and solar cover almost all of demand. This project turns hourly SMARD data for 2024–2025 into validated datasets, controlled comparisons and charts that show when negative prices happen and what separates those hours from the rest.
+Negative day-ahead electricity prices in Germany appear when wind and solar cover almost all of demand. This project turns hourly SMARD data for 2024–2025 into validated datasets, controlled comparisons, SQL queries, charts and a three-page Power BI dashboard that show when negative prices happen and what separates those hours from the rest.
+
+![Power BI dashboard, page 1](docs/images/dashboard_page1.png)
 
 The project is descriptive analytics: there is no machine-learning component yet, and forecasting is an idea for later.
 
@@ -92,7 +94,7 @@ The capture rate is the average price solar output earned, weighted by how much 
 - 70.0% of negative-price hours in 2024 and 76.4% in 2025 were between −10 and 0 €/MWh.
 - Hours below −100 €/MWh rose from 5 to 13, but remain rare. The lowest price was −250.32 €/MWh (2025).
 
-### 8. Negative prices are about three times as common on weekends
+### 8. Negative prices are about 3.6 times as common on weekends
 
 Found with SQL queries on the PostgreSQL layer (see [SQL layer](#sql-layer)).
 
@@ -119,6 +121,25 @@ These are conclusions from descriptive data, not forecasts; storage and the midd
 
 See [detailed findings](docs/findings.md) for tables, method notes and limitations.
 
+## Power BI dashboard
+
+A three-page interactive report built on the PostgreSQL data (17,544 hourly rows). Each chart title states its finding, and every number matches the Python and SQL results.
+
+| Page | What it shows |
+|---|---|
+| 1. Overview | 17,544 hours analysed, 1,030 negative-price hours (5.87%), and negative-price hours per month for 2024 vs 2025, with a year slicer. |
+| 2. When it happens | Share of negative-price hours by residual-load band, weekend vs weekday, and an hour-by-month heatmap (German local time). |
+| 3. Value of solar | Capture rate and share of solar output sold at negative prices, by year and by month. |
+
+![Page 2: when negative prices happen](docs/images/dashboard_page2.png)
+
+![Page 3: value of solar](docs/images/dashboard_page3.png)
+
+- **Open it:** `powerbi/GridSignal.pbix` needs the free [Power BI Desktop](https://powerbi.microsoft.com/desktop/). A read-only copy for anyone without it is in `powerbi/GridSignal_dashboard.pdf`.
+- **Data:** the report uses Import mode, so the data is stored inside the file and opens without a database. Refreshing it needs the local PostgreSQL database from the [SQL layer](#sql-layer).
+- **Measures** (written in DAX): Total Hours, Negative Hours, Negative Share, Average Price, Solar Weighted Price, Capture Rate and Solar Share at Negative Prices.
+- Page 1 (overview) is the image at the top of this README.
+
 ## Limitations
 
 - Two years of data; the results describe associations, not causes.
@@ -142,6 +163,7 @@ The full list is in [docs/findings.md](docs/findings.md).
 4. **Analyze** with grouped, controlled comparisons and fixed residual-load bands.
 5. **Visualize** each finding with one chart whose numbers are computed from the data.
 6. **Store and query** the combined hourly data in PostgreSQL, where SQL queries reproduce key results and answer further questions.
+7. **Present** the results in a three-page Power BI dashboard connected to the PostgreSQL data.
 
 Calendar analysis uses `Europe/Berlin` local time. All scripts read data through one shared loader, and `run_pipeline.py` runs the whole workflow in order.
 
@@ -166,7 +188,14 @@ GridSignal/
 │   ├── hourly_solar_by_price_category_2024_2025.csv
 │   ├── low_residual_hours_by_month_2024_2025.csv
 │   ├── solar_capture_rate_2024_2025.csv
-│   └── solar_capture_rate_by_month_2024_2025.csv
+│   ├── solar_capture_rate_by_month_2024_2025.csv
+│   └── images/               # Power BI dashboard page images
+│       ├── dashboard_page1.png
+│       ├── dashboard_page2.png
+│       └── dashboard_page3.png
+├── powerbi/
+│   ├── GridSignal.pbix       # Power BI report (open with Power BI Desktop)
+│   └── GridSignal_dashboard.pdf
 ├── src/
 │   └── gridsignal/
 │       ├── __init__.py
@@ -301,8 +330,14 @@ The loader reads the connection settings from the standard PostgreSQL environmen
 
 ## Next Steps
 
-Planned, not yet implemented: holiday and night-time analysis, a Power BI dashboard, an analysis of the midday-to-evening price gap for storage, and automated checks on every commit.
+Planned, not yet implemented: holiday and night-time analysis, an analysis of the midday-to-evening price gap for storage, and automated checks on every commit.
 
-## License
+## Data licence and credit
 
-A license has not yet been selected. Project code and third-party data remain subject to their applicable terms until licensing and redistribution permissions are confirmed.
+The market data comes from SMARD. Data downloaded from its market-data section is published under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), with the credit **"Bundesnetzagentur | SMARD.de"**. The charts, tables, SQL results and dashboard in this repository are my own calculations on that data (aggregation, controlled comparisons and derived measures such as residual load and capture rate), not original SMARD figures.
+
+SMARD states that the Bundesnetzagentur is reviewing the legal licensing of wholesale prices, which include the day-ahead prices used here. Check the current terms on [smard.de](https://smard.de/en/datennutzung) before reusing or redistributing the data. The raw and processed data files are not included in this repository.
+
+## Code licence
+
+The project code is released under the [MIT License](LICENSE). The SMARD data it analyses is not covered by this licence; see "Data licence and credit" above.

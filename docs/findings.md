@@ -199,7 +199,7 @@ Percentages describe negative-price hours only, not all hours. Mild prices betwe
 
 ![Severity of negative prices](negative_price_severity_2024_2025.png)
 
-## 9. Finding Seven: Negative Prices Are About Three Times as Common on Weekends
+## 9. Finding Seven: Negative Prices Are About 3.6 Times as Common on Weekends
 
 These results come from SQL queries on the PostgreSQL layer (`sql/05_weekend_effect.sql` and `sql/04_longest_negative_runs.sql`). Weekend means Saturday or Sunday in German local time. Public holidays are not in the data and are not analysed.
 
@@ -274,6 +274,6 @@ The sharp drop in July 2025 is only partly explained: at the same low residual l
 
 For a solar plant owner selling at market prices, the cost is concentrated in spring: the capture rate fell from 0.59 to 0.52 over the year and to 0.31–0.40 in April–June 2025, and 24% of 2025 solar output was produced in negative-price hours.
 
-Negative prices are also about three times as common on weekends (12.1% of hours against 3.4%), and all ten of the longest unbroken runs started on a weekend or public holiday.
+Negative prices are also about 3.6 times as common on weekends (12.1% of hours against 3.4%), and all ten of the longest unbroken runs started on a weekend or public holiday.
 
 These findings describe associations in two years of hourly data. Next steps are to examine public holidays and night-time wind, and to analyse the midday-to-evening price gap for storage.
