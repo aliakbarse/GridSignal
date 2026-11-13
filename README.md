@@ -101,7 +101,7 @@ The capture rate is the average price solar output earned, weighted by how much 
 - 70.0% of negative-price hours in 2024 and 76.4% in 2025 were between −10 and 0 €/MWh.
 - Hours below −100 €/MWh rose from 5 to 13, but remain rare. The lowest price was −250.32 €/MWh (2025).
 
-### 8. Negative prices are about three times as common on weekends
+### 8. Negative prices are about 3.6 times as common on weekends
 
 Found with SQL queries on the PostgreSQL layer (see [SQL layer](#sql-layer)).
 
@@ -235,6 +235,7 @@ GridSignal/
 │   └── 05_weekend_effect.sql
 ├── tests/
 ├── .gitignore
+├── LICENSE
 ├── pyproject.toml
 └── README.md
 ```
@@ -347,4 +348,4 @@ SMARD states that the Bundesnetzagentur is reviewing the legal licensing of whol
 
 ## Code licence
 
-A licence for the project code has not yet been selected, so by default all rights are reserved until one is added.
+The project code is released under the [MIT License](LICENSE). The SMARD data it analyses is not covered by this licence; see "Data licence and credit" above.
