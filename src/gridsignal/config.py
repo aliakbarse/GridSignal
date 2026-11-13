@@ -1,3 +1,11 @@
+"""Shared paths and settings for the GridSignal pipeline.
+
+Defines the project folders (data/raw, data/processed and docs), the
+file names of the combined datasets, the local timezone (Europe/Berlin),
+the years analysed and the MIN_NEGATIVE_HOURS threshold. Scripts import
+these values so that each setting is defined in one place.
+"""
+
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]

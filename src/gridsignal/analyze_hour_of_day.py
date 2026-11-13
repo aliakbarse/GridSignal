@@ -1,3 +1,17 @@
+"""Analyse negative prices and solar output by hour of the day.
+
+For each year and German local hour, calculates how often the price was
+negative. It also calculates average, median and standard deviation of
+solar output in negative-price hours and in other hours. Prints the peak
+negative-price hour of each year.
+
+Writes docs/hourly_negative_price_frequency_2024_2025.csv and
+docs/hourly_solar_by_price_category_2024_2025.csv, which
+plot_hour_of_day_analysis.py then draws.
+
+Run with: python -m gridsignal.analyze_hour_of_day
+"""
+
 import pandas as pd
 
 from gridsignal import config

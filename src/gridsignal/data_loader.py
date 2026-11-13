@@ -1,3 +1,11 @@
+"""Load the combined hourly dataset for the analysis scripts.
+
+Every analysis and plotting script reads the data through
+load_market_data(). It parses the UTC timestamps, converts them to German
+local time, adds year, month, hour and is_negative_price columns, keeps
+the analysed years and returns the rows sorted by time.
+"""
+
 from pathlib import Path
 
 import pandas as pd

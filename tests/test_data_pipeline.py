@@ -1,3 +1,17 @@
+"""Tests for combine_market_data() and the validation rules behind it.
+
+Each test builds a small price and generation table and checks one rule:
+- negative prices are flagged, and a price of exactly zero is not negative;
+- timestamps are matched across time zones, and duplicate, missing,
+  invalid or unmatched timestamps are rejected;
+- price values must be present, numeric and finite;
+- generation values must be present, finite and not negative, and the wind
+  and renewables totals must equal the sum of their parts;
+- required price and generation columns must exist.
+
+Run with: python -m pytest -v
+"""
+
 import pandas as pd
 import pytest
 

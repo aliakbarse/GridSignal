@@ -1,3 +1,15 @@
+"""Diagnostic: inspect the merged dataset on autumn clock-change days.
+
+Prints the merged rows for 27 October 2024 and 26 October 2025, the days
+when one local hour happens twice, and lists the repeated local timestamps
+with their different UTC times. Also reports the number of duplicate UTC
+timestamps in the whole dataset, which should be zero.
+
+Not part of the normal pipeline. Run the pipeline first, because it reads
+the merged dataset.
+
+Run with: python -m gridsignal.inspect_dst_consumption_alignment
+"""
 
 from pathlib import Path
 

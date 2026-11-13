@@ -1,3 +1,17 @@
+"""Add grid consumption and residual load to the combined dataset.
+
+Reads the combined market file and the raw SMARD consumption CSV, and
+keeps the consumption intervals that fall inside the market data's local
+time range. Before joining, it checks row by row that the local start and
+end times match, so the two repeated hours at the autumn clock change stay
+separate. The columns are then joined by row order. Raises an error if the
+row counts or timestamps do not match, instead of merging anyway.
+
+Writes data/processed/germany_market_consumption_combined_2024_2025.csv,
+which the analysis scripts read.
+
+Run with: python -m gridsignal.prepare_consumption_data
+"""
 
 from pathlib import Path
 

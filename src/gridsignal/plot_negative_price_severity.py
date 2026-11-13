@@ -1,3 +1,16 @@
+"""Chart how severe the negative prices were.
+
+Sorts the negative-price hours into price ranges (from below -100 up to
+-10 to 0 EUR/MWh) and draws, for 2024 and 2025, the share of negative-price
+hours in each range as stacked bars. The key-finding line gives the share
+of mild negative prices (-10 to 0 EUR/MWh) in each year. Also prints the
+distribution table.
+
+Writes docs/negative_price_severity_2024_2025.png.
+
+Run with: python -m gridsignal.plot_negative_price_severity
+"""
+
 import matplotlib.pyplot as plt
 import pandas as pd
 

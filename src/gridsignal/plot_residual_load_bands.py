@@ -1,3 +1,15 @@
+"""Chart the share of negative-price hours by residual-load band.
+
+Reads the band table written by analyze_residual_load.py and draws one bar
+per band, labelled with the share and the number of negative-price hours.
+The key-finding line is calculated from the data: the share of all
+negative-price hours that happened with residual load below 10 GW.
+
+Writes docs/negative_price_share_by_residual_load_2024_2025.png.
+
+Run with: python -m gridsignal.plot_residual_load_bands
+"""
+
 import matplotlib.pyplot as plt
 import pandas as pd
 

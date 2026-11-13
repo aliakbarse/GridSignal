@@ -1,3 +1,14 @@
+"""Run the whole GridSignal workflow in order.
+
+The stages are: clean prices and generation, combine them, add
+consumption, run the analyses and draw the charts. Each stage is a module
+in this package with a main() function. The script imports each one in
+turn, runs it and prints how long it took. An error in any stage stops the
+run.
+
+Run with: python -m gridsignal.run_pipeline
+"""
+
 import importlib
 import time
 

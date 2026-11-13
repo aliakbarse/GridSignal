@@ -1,3 +1,17 @@
+"""Compare solar output in negative and other hours, with controls.
+
+Calculates average solar output in negative-price and non-negative hours
+and their ratio, first for all hours and then for tighter subsets: midday
+(11:00-14:59), midday in April-September, and the same split into weekdays
+and weekends. Each step removes part of the gap that comes from when
+negative prices happen rather than from solar itself. Results are
+calculated separately for each year.
+
+Writes docs/solar_comparison_controls_2024_2025.csv.
+
+Run with: python -m gridsignal.analyze_solar_controls
+"""
+
 import pandas as pd
 
 from gridsignal import config

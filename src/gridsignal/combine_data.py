@@ -1,3 +1,14 @@
+"""Combine the cleaned price and generation files into one dataset.
+
+Reads the two cleaned CSV files from data/processed/, converts their
+timestamps to UTC and keeps the rows whose German local year is 2024 or
+2025. combine_market_data() then validates and joins them one-to-one on
+the UTC timestamp. Prints a join report and writes
+data/processed/germany_market_combined_2024_2025.csv.
+
+Run with: python -m gridsignal.combine_data
+"""
+
 from pathlib import Path
 
 import pandas as pd

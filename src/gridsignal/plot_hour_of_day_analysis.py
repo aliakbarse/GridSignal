@@ -1,3 +1,17 @@
+"""Draw the hour-of-day chart for negative prices and solar output.
+
+Reads the two tables written by analyze_hour_of_day.py and draws three
+panels: A, how often the price is negative at each hour, by year; B and C,
+average solar output by hour in negative-price and other hours for 2024
+and 2025. Hours with fewer than MIN_HOURS negative-price hours are marked
+as small samples. The headline is calculated from the data: the share of
+negative-price hours between 10:00 and 17:00.
+
+Writes docs/hour_of_day_analysis_2024_2025.png.
+
+Run with: python -m gridsignal.plot_hour_of_day_analysis
+"""
+
 import matplotlib.pyplot as plt
 import pandas as pd
 

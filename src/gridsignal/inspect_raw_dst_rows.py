@@ -1,3 +1,15 @@
+"""Diagnostic: compare raw and merged consumption rows on clock-change days.
+
+On the autumn clock-change days (27 October 2024 and 26 October 2025) one
+local hour happens twice. This script prints the raw consumption rows and
+the merged dataset rows for those two dates side by side, so you can check
+that both repeated hours were kept and matched to the right values.
+
+Not part of the normal pipeline. Run the pipeline first, because it reads
+the merged dataset.
+
+Run with: python -m gridsignal.inspect_raw_dst_rows
+"""
 
 from pathlib import Path
 

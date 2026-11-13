@@ -1,3 +1,14 @@
+"""Clean the raw SMARD generation file.
+
+Reads the raw CSV from data/raw/ and keeps offshore wind, onshore wind
+and solar (photovoltaics) generation. Local Berlin times are converted
+to UTC, and two totals are added: wind_total_mwh and
+renewables_selected_mwh (wind plus solar, not total supply). Prints a
+data-quality report and writes the result to data/processed/.
+
+Run with: python -m gridsignal.clean_generation
+"""
+
 from pathlib import Path
 
 import pandas as pd

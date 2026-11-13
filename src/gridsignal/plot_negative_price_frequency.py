@@ -1,3 +1,14 @@
+"""Chart the monthly share of hours with a negative price.
+
+Calculates, for each month of 2024 and 2025, the share of observed hours
+with a day-ahead price below zero, and draws one line per year. The
+highest monthly value is marked and repeated in the key-takeaway line.
+
+Writes docs/negative_price_frequency_2024_2025.png.
+
+Run with: python -m gridsignal.plot_negative_price_frequency
+"""
+
 import matplotlib.pyplot as plt
 
 from gridsignal import config

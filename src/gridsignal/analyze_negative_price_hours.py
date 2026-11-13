@@ -1,3 +1,16 @@
+"""Compare negative-price hours with all other hours.
+
+Groups the hourly data into negative and non-negative price hours and
+reports, for each group, the number of hours, average and median price,
+average demand, average wind and solar generation, average residual load
+and the share of all hours. Stops with an error if a required column is
+missing or contains missing values.
+
+Writes docs/negative_price_comparison_2024_2025.csv.
+
+Run with: python -m gridsignal.analyze_negative_price_hours
+"""
+
 import pandas as pd
 
 from gridsignal import config

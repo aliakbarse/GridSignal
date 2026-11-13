@@ -1,3 +1,13 @@
+"""Validation checks and the merge of price and generation data.
+
+Checks that timestamps are unique, timezone-aware UTC values, that numeric
+columns are present, finite and (for generation) not negative, and that
+the wind and renewables totals equal the sum of their parts.
+combine_market_data() then joins prices and generation one-to-one on the
+UTC timestamp and adds local time, year, month and is_negative_price.
+Any failed check raises a ValueError instead of being silently fixed.
+"""
+
 import numpy as np
 import pandas as pd
 

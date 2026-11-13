@@ -1,3 +1,17 @@
+"""Analyse day-ahead prices by residual-load band.
+
+Residual load is grid demand minus wind and solar. Hours are grouped into
+fixed bands (<= 0 GW up to > 30 GW), and for each band the script reports
+the number of hours, negative-price hours, average and median price and
+the negative-price share. It also computes the Pearson and Spearman
+correlation of price with grid load, wind and solar, and residual load.
+
+Writes docs/price_by_residual_load_band_2024_2025.csv and
+docs/price_correlations_2024_2025.csv.
+
+Run with: python -m gridsignal.analyze_residual_load
+"""
+
 import pandas as pd
 
 from gridsignal import config

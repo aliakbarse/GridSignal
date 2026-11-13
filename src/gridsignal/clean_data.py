@@ -1,3 +1,14 @@
+"""Clean the raw SMARD day-ahead price file.
+
+Reads the raw CSV from data/raw/, finds the Germany/Luxembourg price
+column, parses the timestamps and drops rows with invalid values. Local
+Berlin times are converted to UTC, with the repeated hour at the autumn
+clock change resolved by inference. Prints a data-quality report and
+writes the cleaned prices to data/processed/.
+
+Run with: python -m gridsignal.clean_data
+"""
+
 from pathlib import Path
 
 import pandas as pd
