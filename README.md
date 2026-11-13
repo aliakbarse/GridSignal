@@ -4,6 +4,13 @@
 
 Negative day-ahead electricity prices in Germany appear when wind and solar cover almost all of demand. This project turns hourly SMARD data for 2024–2025 into validated datasets, controlled comparisons, SQL queries, charts and a three-page Power BI dashboard that show when negative prices happen and what separates those hours from the rest.
 
+**Summary.** Of 17,544 hourly day-ahead prices in 2024–2025, 1,030 (5.87%) were negative.
+
+- **Low residual load:** when wind and solar covered all of demand, 92% of hours (239 of 261) had a negative price. With residual load above 20 GW, none did.
+- **Midday and weekends:** 84% of negative-price hours fell between 10:00 and 17:00, and weekend hours were 3.6 times as likely to be negative as weekday hours (12.1% vs 3.4%).
+- **Solar earns less than the average price:** its capture rate fell from 0.59 in 2024 to 0.52 in 2025, and to 0.31 in June 2025.
+- **2025 was uneven:** negative-price hours rose from 457 to 573, but July 2025 dropped to 12 hours from 81 in July 2024, and that drop is only partly explained.
+
 ![Power BI dashboard, page 1](docs/images/dashboard_page1.png)
 
 The project is descriptive analytics: there is no machine-learning component yet, and forecasting is an idea for later.
@@ -94,7 +101,7 @@ The capture rate is the average price solar output earned, weighted by how much 
 - 70.0% of negative-price hours in 2024 and 76.4% in 2025 were between −10 and 0 €/MWh.
 - Hours below −100 €/MWh rose from 5 to 13, but remain rare. The lowest price was −250.32 €/MWh (2025).
 
-### 8. Negative prices are about 3.6 times as common on weekends
+### 8. Negative prices are about three times as common on weekends
 
 Found with SQL queries on the PostgreSQL layer (see [SQL layer](#sql-layer)).
 
@@ -340,4 +347,4 @@ SMARD states that the Bundesnetzagentur is reviewing the legal licensing of whol
 
 ## Code licence
 
-The project code is released under the [MIT License](LICENSE). The SMARD data it analyses is not covered by this licence; see "Data licence and credit" above.
+A licence for the project code has not yet been selected, so by default all rights are reserved until one is added.
